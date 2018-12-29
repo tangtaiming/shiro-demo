@@ -2,6 +2,7 @@ package com.application.ttm.web.taglib;
 
 import com.application.ttm.SpringUtils;
 import com.application.ttm.entity.Role;
+import com.application.ttm.service.ResourceService;
 import com.application.ttm.service.RoleService;
 import org.apache.commons.collections.CollectionUtils;
 
@@ -43,11 +44,20 @@ public class Functions {
 
     private static RoleService roleService;
 
+    private static ResourceService resourceService;
+
     public static RoleService getRoleService() {
         if (null == roleService) {
             roleService = SpringUtils.getBean(RoleService.class);
         }
         return roleService;
+    }
+
+    public static ResourceService getResourceService() {
+        if (null == resourceService) {
+            resourceService = SpringUtils.getBean(ResourceService.class);
+        }
+        return resourceService;
     }
 
 }
