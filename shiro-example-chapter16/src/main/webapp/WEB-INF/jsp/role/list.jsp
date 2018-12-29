@@ -37,7 +37,7 @@
         <tr>
             <td>${role.role}</td>
             <td>${role.description}</td>
-            <td>${role.resourceIds}</td>
+            <td>${function:resourceNames(role.resourceIds)}</td>
             <td>
                 <shiro:hasPermission name="role:update">
                     <a href="${pageContext.request.contextPath}/role/${role.id}/update">修改</a>

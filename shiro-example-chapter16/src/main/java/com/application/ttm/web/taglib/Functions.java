@@ -1,6 +1,7 @@
 package com.application.ttm.web.taglib;
 
 import com.application.ttm.SpringUtils;
+import com.application.ttm.entity.Resource;
 import com.application.ttm.entity.Role;
 import com.application.ttm.service.ResourceService;
 import com.application.ttm.service.RoleService;
@@ -40,6 +41,34 @@ public class Functions {
             sb.deleteCharAt(sb.length() - 1);
         }
         return sb.toString();
+    }
+
+    public static String resourceNames(Collection<Long> resourceIds) {
+        if (CollectionUtils.isEmpty(resourceIds)) {
+            return "";
+        }
+
+        StringBuffer sb = new StringBuffer();
+        for (Long resourceId : resourceIds) {
+            Resource resource = getResourceService().findOne(resourceId);
+            if (null == resource) {
+                return "";
+            }
+            sb.append(resource.getName());
+            sb.append(",");
+        }
+
+        if (sb.length() > 0) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        return sb.toString();
+    }
+
+    public static boolean in(Iterable iterable, Object element) {
+        if (null == iterable) {
+            return false;
+        }
+        return org.springframework.util.CollectionUtils.contains(iterable.iterator(), element);
     }
 
     private static RoleService roleService;
