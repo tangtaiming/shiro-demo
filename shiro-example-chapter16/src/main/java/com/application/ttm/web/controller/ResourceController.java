@@ -6,6 +6,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +23,11 @@ public class ResourceController {
 
     @Autowired
     private ResourceService resourceService;
+
+    @ModelAttribute("types")
+    public Resource.ResourceType[] resourceTypes() {
+        return Resource.ResourceType.values();
+    }
 
     @RequiresPermissions("resource:view")
     @RequestMapping(method = RequestMethod.GET)
@@ -50,5 +56,30 @@ public class ResourceController {
         redirectAttributes.addFlashAttribute("msg", "新增子节点成功");
         return "redirect:/resource";
     }
+
+    @RequiresPermissions("resource:update")
+    @RequestMapping(value = "/{id}/update", method = RequestMethod.GET)
+    public String showUpdate(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("resource", resourceService.findOne(id));
+        model.addAttribute("op", "修改");
+        return "resource/edit";
+    }
+
+    @RequiresPermissions("resources:update")
+    @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
+    public String update(Resource resource, RedirectAttributes redirectAttributes) {
+        resourceService.updateResource(resource);
+        redirectAttributes.addFlashAttribute("msg", "修改成功");
+        return "redirect:/resource";
+    }
+
+    @RequiresPermissions("resource:delete")
+    @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
+    public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        resourceService.deleteResource(id);
+        redirectAttributes.addFlashAttribute("msg", "删除成功");
+        return "redirect:/resource";
+    }
+
 
 }
