@@ -113,6 +113,7 @@
                 /logout = logout
                 /authenticated = authc
                 /** = user,sysUser
+                /favicon.ico = anon
             </value>
         </property>
     </bean>
