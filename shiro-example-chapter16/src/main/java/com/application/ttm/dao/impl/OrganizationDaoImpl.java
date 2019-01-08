@@ -2,8 +2,8 @@ package com.application.ttm.dao.impl;
 
 import com.application.ttm.dao.OrganizationDao;
 import com.application.ttm.entity.Organization;
-import com.mysql.cj.jdbc.CallableStatementWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
@@ -24,10 +24,8 @@ public class OrganizationDaoImpl implements OrganizationDao {
 
     @Override
     public Organization createOrganization(Organization organization) {
-        //add sql
         final String sql = "insert into sys_organization( name, parent_id, parent_ids, available) values(?,?,?,?)";
 
-        //generated
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
@@ -38,7 +36,6 @@ public class OrganizationDaoImpl implements OrganizationDao {
             return ps;
         }, keyHolder);
 
-        //set id
         organization.setId(keyHolder.getKey().longValue());
         return organization;
     }
@@ -47,34 +44,50 @@ public class OrganizationDaoImpl implements OrganizationDao {
     public Organization updateOrganization(Organization organization) {
         final String sql = "update sys_organization set name=?, parent_id=?, parent_ids=?, available=? where id=?";
 
-        jdbcTemplate.update(sql,
+        jdbcTemplate.update(
+                sql,
                 organization.getName(), organization.getParentId(), organization.getParentIds(), organization.getAvailable(), organization.getId());
         return organization;
     }
 
     @Override
     public void deleteOrganization(Long organizationId) {
-
+        Organization organization = findOne(organizationId);
+        final String deleteSelfSql = "delete from sys_organization where id=?";
+        jdbcTemplate.update(deleteSelfSql, organizationId);
+        final String deleteDescendantsSql = "delete from sys_organization where parent_ids like ?";
+        jdbcTemplate.update(deleteDescendantsSql, organization.makeSelfAsParentIds() + "%");
     }
 
     @Override
     public Organization findOne(Long organizationId) {
-        return null;
+        final String sql = "select id, name, parent_id, parent_ids, available from sys_organization where id=?";
+        List<Organization> organizationList = jdbcTemplate.query(sql, new BeanPropertyRowMapper(Organization.class), organizationId);
+        if(organizationList.size() == 0) {
+            return null;
+        }
+        return organizationList.get(0);
     }
 
     @Override
     public List<Organization> findAll() {
-        return null;
+        final String sql = "select id, name, parent_id, parent_ids, available from sys_organization";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper(Organization.class));
     }
 
     @Override
     public List<Organization> findAllWithExclude(Organization excludeOraganization) {
-        return null;
+        //TODO 改成not exists 利用索引
+        final String sql = "select id, name, parent_id, parent_ids, available from sys_organization where id!=? and parent_ids not like ?";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper(Organization.class), excludeOraganization.getId(), excludeOraganization.makeSelfAsParentIds() + "%");
     }
 
     @Override
     public void move(Organization source, Organization target) {
-
+        String moveSourceSql = "update sys_organization set parent_id=?,parent_ids=? where id=?";
+        jdbcTemplate.update(moveSourceSql, target.getId(), target.getParentIds(), source.getId());
+        String moveSourceDescendantsSql = "update sys_organization set parent_ids=concat(?, substring(parent_ids, length(?))) where parent_ids like ?";
+        jdbcTemplate.update(moveSourceDescendantsSql, target.makeSelfAsParentIds(), source.makeSelfAsParentIds(), source.makeSelfAsParentIds() + "%");
     }
 
 }

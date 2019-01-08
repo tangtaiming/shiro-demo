@@ -3,11 +3,12 @@ package com.application.ttm.entity;
 import java.io.Serializable;
 
 /**
- * <p>User: tangtaiming
- * <p>Date: 2019-01-06
- * <p>Version: 1.0
- */
+ * <p>@Author tangtaiming</p>
+ * <p>@Date 2019-01-07</p>
+ * <p>@Version 1.0</p>
+ **/
 public class Organization implements Serializable {
+
     private Long id; //编号
     private String name; //组织机构名称
     private Long parentId; //父编号
