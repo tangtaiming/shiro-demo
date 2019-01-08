@@ -58,7 +58,7 @@
                 <c:if test="${not resource.rootNode}">
 
                     <shiro:hasPermission name="resource:delete">
-                        <a class="deleteBtn" href="#" data-id="${resource.id}">删除</a>
+                        <a class="deleteBtn" href="/resource/${resource.id}/delete" data-id="${resource.id}">删除</a>
                     </shiro:hasPermission>
                 </c:if>
             </td>

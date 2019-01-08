@@ -93,6 +93,7 @@
         <property name="passwordParam" value="password"/>
         <property name="rememberMeParam" value="rememberMe"/>
         <property name="loginUrl" value="/login"/>
+        <property name="successUrl" value="/"/>
     </bean>
 
     <bean id="sysUserFilter" class="com.application.ttm.web.shiro.filter.SysUserFilter"/>
@@ -113,6 +114,7 @@
                 /logout = logout
                 /authenticated = authc
                 /** = user,sysUser
+                /favicon.ico = anon
             </value>
         </property>
     </bean>
