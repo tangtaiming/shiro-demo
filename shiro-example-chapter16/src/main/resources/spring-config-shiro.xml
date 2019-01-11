@@ -110,11 +110,11 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
+                /favicon.ico = anon
                 /login = authc
                 /logout = logout
                 /authenticated = authc
                 /** = user,sysUser
-                /favicon.ico = anon
             </value>
         </property>
     </bean>
