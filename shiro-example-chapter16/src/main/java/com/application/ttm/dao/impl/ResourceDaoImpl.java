@@ -53,7 +53,9 @@ public class ResourceDaoImpl implements ResourceDao {
                 resource.getPermission(),
                 resource.getParentId(),
                 resource.getParentIds(),
-                resource.getAvailable());
+                resource.getAvailable(),
+                resource.getId()
+        );
         return resource;
     }
 

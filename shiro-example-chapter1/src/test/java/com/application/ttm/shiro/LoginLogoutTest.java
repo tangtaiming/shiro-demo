@@ -74,6 +74,48 @@ public class LoginLogoutTest {
         Factory factory = new IniSecurityManagerFactory("classpath:shiro-mutil-realm.ini");
         //2.获取 SecurityManager 实体类
         SecurityManager manager = (SecurityManager) factory.getInstance();
+        SecurityUtils.setSecurityManager(manager);
+        //3.获取 Subject 对象
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken("tang", "123");
+
+        try {
+            subject.login(token);
+        } catch (AuthenticationException e) {
+            e.printStackTrace();
+        }
+
+        //断言 成功
+        Assert.assertEquals(true, subject.isAuthenticated());
+
+        //退出
+        subject.logout();
+    }
+
+    @Test
+    public void testCustomJdbcRealm() {
+        //1.获取 SecurityManager 工厂
+        Factory factory = new IniSecurityManagerFactory("classpath:shiro-jdbc.ini");
+        //2.获取 SecurityManager 实例
+        SecurityManager manager = (SecurityManager) factory.getInstance();
+        SecurityUtils.setSecurityManager(manager);
+        //3.获取 Subject 实例 并且获取token
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken("tang", "123");
+
+        //4.进行登录
+        try {
+            subject.login(token);
+        } catch (AuthenticationException e) {
+            //登录失败
+            e.printStackTrace();
+        }
+
+        //断言 登录成功
+        Assert.assertEquals(true, subject.isAuthenticated());
+
+        //5.退出登录
+        subject.logout();
     }
 
 }

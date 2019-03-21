@@ -65,7 +65,7 @@ public class ResourceController {
         return "resource/edit";
     }
 
-    @RequiresPermissions("resources:update")
+    @RequiresPermissions("resource:update")
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
     public String update(Resource resource, RedirectAttributes redirectAttributes) {
         resourceService.updateResource(resource);
