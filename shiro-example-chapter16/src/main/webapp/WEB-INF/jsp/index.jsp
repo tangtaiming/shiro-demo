@@ -10,16 +10,16 @@
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
-    <title>Shiro综合案例</title>
+    <title>TTM</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/layout-default-latest.css">
 </head>
 <body>
 
 <iframe name="content" class="ui-layout-center"
         src="${pageContext.request.contextPath}/welcome" frameborder="0" scrolling="auto"></iframe>
-<div class="ui-layout-north">欢迎[<shiro:principal/>]学习Shiro综合案例，<a href="${pageContext.request.contextPath}/logout">退出</a></div>
+<div class="ui-layout-north">欢迎[<shiro:principal/>]，<a href="${pageContext.request.contextPath}/logout">退出</a></div>
 <div class="ui-layout-south">
-    获取源码：<a href="https://github.com/zhangkaitao/shiro-example" target="_blank">https://github.com/zhangkaitao/shiro-example</a>
+    Copyright © 2008-2019 TTM xxx.com 版权所有
 </div>
 <div class="ui-layout-west">
     功能菜单<br/>
