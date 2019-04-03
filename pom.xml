@@ -13,6 +13,7 @@
       <module>shiro-example-chapter16</module>
       <module>shiro-example-struts</module>
       <module>shiro-example-chapter1</module>
+      <module>shiro-example-chapter17-server</module>
   </modules>
   <name>shiro-demo</name>
 
