@@ -39,7 +39,7 @@
     <bean id="exceptionHandlerExceptionResolver" class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver">
     </bean>
 
-<!--    <bean class="com.github.zhangkaitao.shiro.chapter17.web.exception.DefaultExceptionHandler"/>-->
+    <bean class="com.application.ttm.shiro.web.exception.DefaultExceptionHandler"/>
 
     <import resource="spring-mvc-shiro.xml"/>
 
