@@ -73,6 +73,7 @@
         <aop:advisor id="txAdvisor" advice-ref="txAdvice" pointcut-ref="txPointcut"></aop:advisor>
     </aop:config>
 
-    <import resource="spring-config-shiro.xml"></import>
+    <import resource="classpath:spring-config-cache.xml"/>
+    <import resource="classpath:spring-config-shiro.xml"/>
 
 </beans>

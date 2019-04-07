@@ -7,8 +7,6 @@
 
     <context:property-placeholder location="classpath:resources.properties"></context:property-placeholder>
 
-    <import resource="spring-config-cache.xml"></import>
-
     <!-- 缓存管理器 -->
     <bean id="cacheManager" class="com.application.ttm.shiro.spring.SpringCacheManagerWrapper">
         <property name="cacheManager" ref="springCacheManager"/>
