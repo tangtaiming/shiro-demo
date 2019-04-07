@@ -4,6 +4,7 @@ import com.alibaba.druid.util.StringUtils;
 import com.application.ttm.shiro.Constants;
 import com.application.ttm.shiro.service.ClientService;
 import com.application.ttm.shiro.service.OAuthService;
+import com.application.ttm.shiro.web.vo.ResponseVo;
 import org.apache.oltu.oauth2.as.issuer.MD5Generator;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuerImpl;
 import org.apache.oltu.oauth2.as.request.OAuthAuthzRequest;
@@ -50,12 +51,11 @@ public class AuthorizeController {
 
             //检查传入的客户端id是否正确
             if (!oAuthService.checkClientId(oauthRequest.getClientId())) {
-                OAuthResponse response =
-                        OAuthResponse.errorResponse(HttpServletResponse.SC_BAD_REQUEST)
-                            .setError(OAuthError.TokenResponse.INVALID_CLIENT)
-                            .setErrorDescription(Constants.INVALID_CLIENT_DESCRIPTION)
-                            .buildJSONMessage();
-                return new ResponseEntity<>(response.getBody(), HttpStatus.valueOf(response.getResponseStatus()));
+                ResponseVo responseVo = new ResponseVo();
+                return responseVo.error(
+                        HttpServletResponse.SC_BAD_REQUEST,
+                        OAuthError.TokenResponse.INVALID_CLIENT,
+                        Constants.INVALID_CLIENT_DESCRIPTION);
             }
 
             //如果用户没有登录，跳转到登陆页面
@@ -96,14 +96,18 @@ public class AuthorizeController {
             headers.setLocation(new URI(response.getLocationUri()));
             return new ResponseEntity<>(headers, HttpStatus.valueOf(response.getResponseStatus()));
         } catch (OAuthProblemException e) {
-
             //出错处理
             String redirectUri = e.getRedirectUri();
             if (OAuthUtils.isEmpty(redirectUri)) {
                 //告诉客户端没有传入redirectUri直接报错
-                return new ResponseEntity<>("OAuth callback url needs to be provided by client!!!", HttpStatus.NOT_FOUND);
+                ResponseVo responseVo = new ResponseVo();
+                return responseVo.error(
+                        HttpServletResponse.SC_BAD_REQUEST,
+                        Constants.ERROR_REDIRECT_MESSAGE,
+                        "OAuth callback url needs to be provided by client!!!");
             }
 
+            ResponseVo responseVo = new ResponseVo();
             //返回错误消息（如?error=）
             final OAuthResponse response =
                     OAuthASResponse.errorResponse(HttpServletResponse.SC_FOUND)
