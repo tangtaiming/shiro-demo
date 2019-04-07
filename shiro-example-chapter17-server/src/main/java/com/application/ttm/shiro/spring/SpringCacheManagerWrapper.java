@@ -22,7 +22,8 @@ public class SpringCacheManagerWrapper implements CacheManager {
 
     @Override
     public <K, V> Cache<K, V> getCache(String s) throws CacheException {
-        return null;
+        org.springframework.cache.Cache springCache = cacheManager.getCache(s);
+        return new SpringCacheWrapper(springCache);
     }
 
     public void setCacheManager(org.springframework.cache.CacheManager cacheManager) {
@@ -32,6 +33,10 @@ public class SpringCacheManagerWrapper implements CacheManager {
     static class SpringCacheWrapper implements Cache {
 
         private org.springframework.cache.Cache springCache;
+
+        SpringCacheWrapper(org.springframework.cache.Cache springCache) {
+            this.springCache = springCache;
+        }
 
         @Override
         public Object get(Object o) throws CacheException {
