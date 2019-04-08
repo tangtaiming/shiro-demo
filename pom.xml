@@ -14,6 +14,7 @@
       <module>shiro-example-struts</module>
       <module>shiro-example-chapter1</module>
       <module>shiro-example-chapter17-server</module>
+      <module>shiro-example-chapter17-client</module>
   </modules>
   <name>shiro-demo</name>
 
