@@ -50,7 +50,7 @@ public class OAuth2Realm extends AuthorizingRealm {
                     .tokenLocation(accessTokenUrl)
                     .setGrantType(GrantType.AUTHORIZATION_CODE)
                     .setClientId(clientId)
-                    .setClientSecret(redirectUrl)
+                    .setClientSecret(clientSecret)
                     .setCode(code)
                     .setRedirectURI(redirectUrl)
                     .buildQueryMessage();
