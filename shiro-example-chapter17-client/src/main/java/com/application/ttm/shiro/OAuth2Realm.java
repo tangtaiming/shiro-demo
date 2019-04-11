@@ -31,6 +31,12 @@ public class OAuth2Realm extends AuthorizingRealm {
         return simpleAuthorizationInfo;
     }
 
+    //表示此Realm只支持OAuth2Token类型
+    @Override
+    public boolean supports(AuthenticationToken token) {
+        return token instanceof OAuth2Token;
+    }
+
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         OAuth2Token oAuth2Token = (OAuth2Token) authenticationToken;

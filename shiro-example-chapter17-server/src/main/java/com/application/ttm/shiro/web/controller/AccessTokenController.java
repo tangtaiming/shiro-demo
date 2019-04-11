@@ -87,7 +87,7 @@ public class AccessTokenController {
                     .tokenResponse(HttpServletResponse.SC_OK)
                     .setAccessToken(accessToken)
                     .setExpiresIn(String.valueOf(oAuthService.getExpireIn()))
-                    .buildBodyMessage();
+                    .buildJSONMessage();
 
 
             //根据OAuthResponse生成ResponseEntity

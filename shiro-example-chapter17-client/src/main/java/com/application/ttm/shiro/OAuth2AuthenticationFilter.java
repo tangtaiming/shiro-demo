@@ -79,6 +79,7 @@ public class OAuth2AuthenticationFilter extends AuthenticatingFilter {
             return false;
         }
 
+        System.out.println("code: " + servletRequest.getParameter(authcCodeParam));
         Subject subject = getSubject(servletRequest, servletResponse);
         if (!subject.isAuthenticated()) {
             if (StringUtils.isEmpty(servletRequest.getParameter(authcCodeParam))) {
