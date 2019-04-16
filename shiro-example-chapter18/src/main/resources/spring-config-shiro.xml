@@ -101,7 +101,7 @@
         <property name="sessionManager" ref="sessionManager"/>
 
         <property name="kickoutAfter" value="false"/>
-        <property name="maxSession" value="2"/>
+        <property name="maxSession" value="1"/>
         <property name="kickoutUrl" value="/login?kickout=1"/>
     </bean>
 
@@ -115,6 +115,7 @@
             <util:map>
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
                 <entry key="sysUser" value-ref="sysUserFilter"/>
+                <entry key="kickout" value-ref="kickoutSessionControlFilter"/>
             </util:map>
         </property>
         <property name="filterChainDefinitions">
@@ -123,7 +124,7 @@
                 /login = authc
                 /logout = logout
                 /authenticated = authc
-                /** = user,sysUser
+                /** = kickout,user,sysUser
             </value>
         </property>
     </bean>

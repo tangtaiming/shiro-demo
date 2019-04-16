@@ -132,7 +132,7 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
             WebUtils.issueRedirect(request, response, kickoutUrl);
             return false;
         }
-        return false;
+        return true;
     }
 
 }
