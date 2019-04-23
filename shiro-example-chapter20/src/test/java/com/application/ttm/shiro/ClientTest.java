@@ -24,7 +24,7 @@ public class ClientTest {
     public static void beforeClass() throws Exception {
         server = new Server(8080);
         WebAppContext context = new WebAppContext();
-        String webapp = "shiro-example-chapter20/src/main/webapp";
+        String webapp = "src/main/webapp";
         context.setDescriptor(webapp + "/WEB-INF/web.xml");
         context.setResourceBase(webapp);  //指定webapp目录
         context.setContextPath("/");
@@ -32,6 +32,11 @@ public class ClientTest {
 
         server.setHandler(context);
         server.start();
+    }
+
+    @Test
+    public void serveStart() {
+        System.out.println("---->");
     }
 
     @Test
