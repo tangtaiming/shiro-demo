@@ -16,6 +16,7 @@
       <module>shiro-example-chapter17-server</module>
       <module>shiro-example-chapter17-client</module>
       <module>shiro-example-chapter18</module>
+      <module>shiro-example-chapter20</module>
   </modules>
   <name>shiro-demo</name>
 
