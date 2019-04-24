@@ -53,12 +53,7 @@ public class StatelessAuthcFilter extends AccessControlFilter {
         //2、客户端传入的用户身份
         String username = request.getParameter(Constants.PARAM_USERNAME);
         //3、客户端请求的参数列表
-        String pusername = request.getParameter(Constants.PARAM_USERNAME);
-        String[] pparam1 = request.getParameterValues("param1");
-        String pparam2 = request.getParameter("param2");
-
         Map<String, String[]> params = new LinkedHashMap<>(request.getParameterMap());
-//        params.put()
         params.remove(Constants.PARAM_DIGEST);
 
         //4、生成无状态Token
