@@ -47,10 +47,10 @@ public class ClientTest {
         String param2 = "param2";
         String key = "dadadswdewq2ewdwqdwadsadasd";
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-        params.add(Constants.PARAM_USERNAME, username);
         params.add("param1", param11);
         params.add("param1", param12);
         params.add("param2", param2);
+        params.add(Constants.PARAM_USERNAME, username);
         params.add(Constants.PARAM_DIGEST, HmacSHA256Utils.digest(key, params));
 
         String url = UriComponentsBuilder

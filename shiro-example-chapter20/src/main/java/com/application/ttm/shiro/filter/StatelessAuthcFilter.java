@@ -3,12 +3,15 @@ package com.application.ttm.shiro.filter;
 import com.application.ttm.shiro.Constants;
 import com.application.ttm.shiro.realm.StatelessToken;
 import org.apache.shiro.web.filter.AccessControlFilter;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class StatelessAuthcFilter extends AccessControlFilter {
@@ -50,7 +53,12 @@ public class StatelessAuthcFilter extends AccessControlFilter {
         //2、客户端传入的用户身份
         String username = request.getParameter(Constants.PARAM_USERNAME);
         //3、客户端请求的参数列表
-        Map<String, String[]> params = new HashMap<String, String[]>(request.getParameterMap());
+        String pusername = request.getParameter(Constants.PARAM_USERNAME);
+        String[] pparam1 = request.getParameterValues("param1");
+        String pparam2 = request.getParameter("param2");
+
+        Map<String, String[]> params = new LinkedHashMap<>(request.getParameterMap());
+//        params.put()
         params.remove(Constants.PARAM_DIGEST);
 
         //4、生成无状态Token
