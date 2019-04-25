@@ -21,9 +21,9 @@ public class StatelessRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         //根据用户名查找角色，请根据需求实现
-        String username = (String) principalCollection.getPrimaryPrincipal();
+//        String username = (String) principalCollection.getPrimaryPrincipal();
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        authorizationInfo.addRole(username);
+//        authorizationInfo.addRole(username);
         return authorizationInfo;
     }
 
