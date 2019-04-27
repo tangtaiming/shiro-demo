@@ -1,5 +1,6 @@
 package com.application.ttm.web.controller;
 
+import com.application.ttm.ResponseUtils;
 import com.application.ttm.entity.User;
 import com.application.ttm.service.RoleService;
 import com.application.ttm.service.UserService;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -28,7 +30,7 @@ public class UserController {
     private RoleService roleService;
 
     @RequiresPermissions("user:view")
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
     public String list(Model model) {
         model.addAttribute("userList", userService.findAll());
         return "user/list";
@@ -45,11 +47,12 @@ public class UserController {
 
     @RequiresPermissions("user:create")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(User user, RedirectAttributes redirectAttributes) {
+    @ResponseBody
+    public String create(User user) {
         System.out.println("user: " + user.toString());
-        redirectAttributes.addFlashAttribute("msg", "新增成功");
+//        redirectAttributes.addFlashAttribute("msg", "新增成功");
         userService.createUser(user);
-        return "redirect:/user";
+        return ResponseUtils.success("/user");
     }
 
     @RequiresPermissions("user:update")
