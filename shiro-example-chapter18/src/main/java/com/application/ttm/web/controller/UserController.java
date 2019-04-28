@@ -103,6 +103,7 @@ public class UserController {
     @RequestMapping(value = "/{id}/changePassword", method = RequestMethod.POST)
     @ResponseBody
     public String changPassword(@PathVariable("id") Long id, String newPassword) {
+        System.out.println("new password: " + newPassword);
         userService.changePassword(id, newPassword);
 //        redirectAttributes.addFlashAttribute("msg", "修改密码成功");
         return ResponseUtils.success("/user");

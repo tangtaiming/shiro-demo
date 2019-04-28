@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
         passwordHelper.encryptPassword(user);
         System.out.println("---> " + JsonUtils.toJson(user));
         return userDao.createUser(user);
+//        return null;
     }
 
     @Override
