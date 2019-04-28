@@ -76,7 +76,7 @@
                 <li><a href="changepwd.html" target="dialog" rel="changepwd" width="600">设置</a></li>
                 <li><a href="http://www.cnblogs.com/dwzjs" target="_blank">博客</a></li>
                 <li><a href="http://weibo.com/dwzui" target="_blank">微博</a></li>
-                <li><a href="login.html">退出</a></li>
+                <li><a href="${pageContext.request.contextPath}/logout">退出</a></li>
             </ul>
             <ul class="themeList" id="themeList">
                 <li theme="default"><div class="selected">蓝色</div></li>

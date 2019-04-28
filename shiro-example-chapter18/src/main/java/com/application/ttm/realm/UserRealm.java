@@ -45,6 +45,10 @@ public class UserRealm extends AuthorizingRealm {
             throw new LockedAccountException();
         }
 
+        System.out.println("username: " + user.getUsername());
+        System.out.println("password: " + user.getPassword());
+        System.out.println("credentialsSalt: " + ByteSource.Util.bytes(user.getCredentialsSalt()));
+
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 user.getUsername(),
                 user.getPassword(),

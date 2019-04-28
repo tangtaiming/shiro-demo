@@ -36,6 +36,11 @@
     <div id="login_content">
         <div class="loginForm">
             <form action="/login" method="post">
+                <c:if test="${not empty error}">
+                    <p>
+                        <span style="color:red;">${error}</span>
+                    </p>
+                </c:if>
                 <p>
                     <label>用户名：</label>
                     <input type="text" name="username" size="20" class="login_input" value="<shiro:principal/>">

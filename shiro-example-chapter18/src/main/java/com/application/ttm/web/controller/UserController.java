@@ -66,10 +66,11 @@ public class UserController {
 
     @RequiresPermissions("user:update")
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
-    public String update(User user, RedirectAttributes redirectAttributes) {
+    @ResponseBody
+    public String update(User user) {
         userService.updateUser(user);
-        redirectAttributes.addFlashAttribute("msg", "修改成功");
-        return "redirect:/user";
+//        redirectAttributes.addFlashAttribute("msg", "修改成功");
+        return ResponseUtils.success("/user");
     }
 
     @RequiresPermissions("user:delete")
@@ -83,10 +84,11 @@ public class UserController {
 
     @RequiresPermissions("user:delete")
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.POST)
-    public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+    @ResponseBody
+    public String delete(@PathVariable("id") Long id) {
         userService.deleteUser(id);
-        redirectAttributes.addFlashAttribute("msg", "删除成功");
-        return "redirect:/user";
+//        redirectAttributes.addFlashAttribute("msg", "删除成功");
+        return ResponseUtils.success("/user", "/user");
     }
 
     @RequiresPermissions("user:update")
@@ -99,10 +101,11 @@ public class UserController {
 
     @RequiresPermissions("user:update")
     @RequestMapping(value = "/{id}/changePassword", method = RequestMethod.POST)
-    public String changPassword(@PathVariable("id") Long id, String newPassword, RedirectAttributes redirectAttributes) {
+    @ResponseBody
+    public String changPassword(@PathVariable("id") Long id, String newPassword) {
         userService.changePassword(id, newPassword);
-        redirectAttributes.addFlashAttribute("msg", "修改密码成功");
-        return "redirect:/user";
+//        redirectAttributes.addFlashAttribute("msg", "修改密码成功");
+        return ResponseUtils.success("/user");
     }
 
     private void setCommonData(Model model) {

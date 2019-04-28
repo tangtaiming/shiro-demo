@@ -12,6 +12,7 @@
     <bean id="credentialsMatcher" class="com.application.ttm.credentials.RetryLimitHashedCredentialsMatcher">
         <constructor-arg ref="cacheManager"/>
         <property name="hashAlgorithmName" value="md5"/>
+        <!--<property name="hashAlgorithm" value="2"></property>-->
         <property name="hashIterations" value="2"/>
         <property name="storedCredentialsHexEncoded" value="true"/>
     </bean>

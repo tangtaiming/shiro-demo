@@ -25,8 +25,8 @@ public class ResponseUtils {
      * @return
      */
     public static String success() {
-        return buildResponse(200, "操作成功", "",
-                "", "", "");
+        return buildResponse(200, "操作成功", null,
+                null, null, null);
     }
 
     public static String success(String navTabId, String forwardUrl) {

@@ -1,5 +1,6 @@
 package com.application.ttm.service.impl;
 
+import com.application.ttm.JsonUtils;
 import com.application.ttm.dao.UserDao;
 import com.application.ttm.entity.User;
 import com.application.ttm.service.PasswordHelper;
@@ -33,6 +34,7 @@ public class UserServiceImpl implements UserService {
     public User createUser(User user) {
         //加密密码
         passwordHelper.encryptPassword(user);
+        System.out.println("---> " + JsonUtils.toJson(user));
         return userDao.createUser(user);
     }
 
@@ -51,6 +53,7 @@ public class UserServiceImpl implements UserService {
         User user = userDao.findOne(userId);
         user.setPassword(newPassword);
         passwordHelper.encryptPassword(user);
+        System.out.println("user to dumper: " + JsonUtils.toJson(user));
         userDao.updateUser(user);
     }
 

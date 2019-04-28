@@ -9,7 +9,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="function" uri="http://github.com/tangtaiming/tags/ttm-functions" %>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<form id="pagerForm" method="post" action="demo_page1.html">
+<form id="pagerForm" method="post" action="/user">
     <input type="hidden" name="status" value="${param.status}">
     <input type="hidden" name="keywords" value="${param.keywords}" />
     <input type="hidden" name="pageNum" value="1" />
@@ -27,15 +27,12 @@
             <shiro:hasPermission name="user:create">
                 <li><a class="add" href="${pageContext.request.contextPath}/user/create" target="navTab" rel="user-create"><span>用户新增</span></a></li>
             </shiro:hasPermission>
-            <li><a class="delete" href="demo/common/ajaxDone.html?uid={sid_user}" target="ajaxTodo" title="确定要删除吗？" warn="请选择一个用户"><span>删除</span></a></li>
-            <li><a class="edit" href="demo_page4.html?uid={sid_user}" target="navTab" warn="请选择一个用户"><span>修改</span></a></li>
-            <li class="line">line</li>
-            <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>
-            <li><a class="icon" href="javascript:$.printBox('w_list_print')"><span>打印</span></a></li>
+            <li><a class="delete" href="/user/{user_id}/delete" target="ajaxTodo" title="确定要删除吗？" warn="请选择一个用户" callback="navTabAjaxDone"><span>删除</span></a></li>
+            <li><a class="edit" href="/user/{user_id}/update" target="navTab" warn="请选择一个用户"><span>修改</span></a></li>
         </ul>
     </div>
     <div id="w_list_print">
-        <table class="list" width="98%" targetType="navTab" asc="asc" desc="desc" layoutH="98">
+        <table class="list" width="100%" targetType="navTab" asc="asc" desc="desc" layoutH="98">
             <thead>
                 <tr>
                     <th>用户名</th>
@@ -45,21 +42,23 @@
             </thead>
             <tbody>
             <c:forEach items="${userList}" var="user" varStatus="status">
-                <tr target="sid_user" rel="${status.index}">
+                <tr target="user_id" rel="${user.id}">
                     <td>${user.username}</td>
                     <td>${function:roleNames(user.roleIds)}</td>
                     <td>
-                        <shiro:hasPermission name="user:update">
-                            <a href="${pageContext.request.contextPath}/user/${user.id}/update">修改</a>
-                        </shiro:hasPermission>
-
-                        <shiro:hasPermission name="user:delete">
-                            <a href="${pageContext.request.contextPath}/user/${user.id}/delete">删除</a>
-                        </shiro:hasPermission>
-
-                        <shiro:hasPermission name="user:update">
-                            <a href="${pageContext.request.contextPath}/user/${user.id}/changePassword">改密</a>
-                        </shiro:hasPermission>
+                        <div>
+                            <shiro:hasPermission name="user:delete">
+                                <a title="删除" href="${pageContext.request.contextPath}/user/${user.id}/delete" target="ajaxTodo" title="确定要删除吗？" class="btnDel">删除</a>
+                            </shiro:hasPermission>
+                            <shiro:hasPermission name="user:update">
+                                <a title="修改" href="${pageContext.request.contextPath}/user/${user.id}/update" target="navTab" class="btnEdit">修改</a>
+                            </shiro:hasPermission>
+                            <shiro:hasPermission name="user:update">
+                                <a title="修改密码" href="${pageContext.request.contextPath}/user/${user.id}/changePassword" target="navTab">
+                                    改密
+                                </a>
+                            </shiro:hasPermission>
+                        </div>
                     </td>
                 </tr>
             </c:forEach>

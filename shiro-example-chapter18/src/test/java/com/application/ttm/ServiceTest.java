@@ -23,7 +23,7 @@ public class ServiceTest {
     @Test
     public void testCreateUser() {
         User user = new User();
-        user.setUsername("3");
+        user.setUsername("4");
         user.setPassword("123456");
         user.setOrganizationId(-1L);
         userService.createUser(user);

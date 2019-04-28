@@ -44,7 +44,6 @@
                     <span class="info"></span>
                 </dd>
             </dl>
-            <div class="divider"></div>
         </div>
         <div class="formBar">
             <ul>
