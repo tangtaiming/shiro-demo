@@ -25,7 +25,7 @@
     <div class="panelBar">
         <ul class="toolBar">
             <shiro:hasPermission name="user:create">
-                <li><a class="add" href="${pageContext.request.contextPath}/user/create" target="navTab" rel="role-create"><span>角色新增</span></a></li>
+                <li><a class="add" href="${pageContext.request.contextPath}/role/create" target="navTab" rel="role-create"><span>角色新增</span></a></li>
             </shiro:hasPermission>
             <li><a class="delete" href="/role/{id}/delete" target="ajaxTodo" title="确定要删除吗？" warn="请选择一个角色" callback="navTabAjaxDone"><span>删除</span></a></li>
             <li><a class="edit" href="/role/{id}/update" target="navTab" warn="请选择一个角色"><span>修改</span></a></li>

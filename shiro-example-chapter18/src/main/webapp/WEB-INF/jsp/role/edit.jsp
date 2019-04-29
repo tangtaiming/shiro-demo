@@ -9,51 +9,54 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="function" uri="http://github.com/tangtaiming/tags/ttm-functions" %>
-<html>
-<head>
-    <title></title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/JQuery zTree v3.5.15/css/zTreeStyle/zTreeStyle.css">
-    <style>
-        ul.ztree {margin-top: 10px;border: 1px solid #617775;background: #f0f6e4;width:220px;height:200px;overflow-y:scroll;overflow-x:auto;}
-    </style>
-
-</head>
-<body>
-
-<form:form method="post" commandName="role">
-    <form:hidden path="id"/>
-    <form:hidden path="available"/>
-
-    <div class="form-group">
-        <form:label path="role">角色名：</form:label>
-        <form:input path="role"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/JQuery_zTree_v3.5.15/css/zTreeStyle/zTreeStyle.css">
+<style>
+    ul.ztree {margin-top: 10px;border: 1px solid #617775;background: #f0f6e4;width:220px;height:200px;overflow-y:scroll;overflow-x:auto;}
+</style>
+<h2 class="contentTitle">新增用户</h2>
+<div class="pageContent">
+    <form:form method="post" commandName="role" cssClass="pageForm required-validate"  onsubmit="return validateCallback(this, navTabAjaxDone);">
+        <div class="pageFormContent nowrap" layoutH="98">
+            <dl>
+                <dt><form:label path="role">角色名：</form:label></dt>
+                <dd>
+                    <form:input path="role"/>
+                    <span class="info"></span>
+                </dd>
+            </dl>
+            <dl>
+                <dt><form:label path="description">角色描述：</form:label></dt>
+                <dd>
+                    <form:input path="description"/>
+                    <span class="info"></span>
+                </dd>
+            </dl>
+            <dl>
+                <dt><form:label path="resourceIds">拥有的资源列表：</form:label></dt>
+                <dd style="position:relative;">
+                    <form:hidden path="resourceIds"/>
+                    <input type="text" id="resourceName" name="resourceName" value="${function:resourceNames(role.resourceIds)}" readonly>
+                    <a class="btnLook" id="menuBtn" href="#">选择</a>
+                    <span class="info"></span>
+                </dd>
+            </dl>
+        </div>
+        <div class="formBar">
+            <ul>
+                <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+                <li><div class="buttonActive"><div class="buttonContent"><form:button>${op}</form:button></div></div></li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form:form>
+    <div id="menuContent" class="menuContent" style="display:none; position: absolute;">
+        <ul id="tree" class="ztree" style="margin-top:0; width:160px;"></ul>
     </div>
-
-    <div class="form-group">
-        <form:label path="description">角色描述：</form:label>
-        <form:input path="description"/>
-    </div>
-
-
-    <div class="form-group">
-        <form:label path="resourceIds">拥有的资源列表：</form:label>
-        <form:hidden path="resourceIds"/>
-        <input type="text" id="resourceName" name="resourceName" value="${function:resourceNames(role.resourceIds)}" readonly>
-        <a id="menuBtn" href="#">选择</a>
-    </div>
-
-    <form:button>${op}</form:button>
-
-</form:form>
-
-
-<div id="menuContent" class="menuContent" style="display:none; position: absolute;">
-    <ul id="tree" class="ztree" style="margin-top:0; width:160px;"></ul>
 </div>
-
-<script src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/JQuery zTree v3.5.15/js/jquery.ztree.all-3.5.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/JQuery_zTree_v3.5.15/js/jquery.ztree.all-3.5.min.js"></script>
 <script>
     $(function () {
         var setting = {
@@ -102,8 +105,8 @@
         function showMenu() {
             var cityObj = $("#resourceName");
             var cityOffset = $("#resourceName").offset();
-            $("#menuContent").css({left:cityOffset.left + "px", top:cityOffset.top + cityObj.outerHeight() + "px"}).slideDown("fast");
-
+            $("#menuContent").css({left:cityOffset.left + "px", top:cityOffset.top + "px"}).slideDown("fast");
+            //top:98px; left:135px;
             $("body").bind("mousedown", onBodyDown);
         }
         function hideMenu() {
@@ -120,7 +123,3 @@
         $("#menuBtn").click(showMenu);
     });
 </script>
-
-
-</body>
-</html>
