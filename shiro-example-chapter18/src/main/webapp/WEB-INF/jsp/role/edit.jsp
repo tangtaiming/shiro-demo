@@ -15,7 +15,7 @@
     ul.ztree {margin-top: 10px;border: 1px solid #617775;background: #f0f6e4;width:220px;height:200px;overflow-y:scroll;overflow-x:auto;}
 </style>
 <h2 class="contentTitle">新增用户</h2>
-<div class="pageContent">
+<div id="pageContent" class="pageContent">
     <form:form method="post" commandName="role" cssClass="pageForm required-validate"  onsubmit="return validateCallback(this, navTabAjaxDone);">
         <div class="pageFormContent nowrap" layoutH="98">
             <dl>
@@ -104,8 +104,9 @@
 
         function showMenu() {
             var cityObj = $("#resourceName");
+            var pageContentOffset = $("#pageContent").offset();
             var cityOffset = $("#resourceName").offset();
-            $("#menuContent").css({left:cityOffset.left + "px", top:cityOffset.top + "px"}).slideDown("fast");
+            $("#menuContent").css({left:(cityOffset.left - pageContentOffset.left) + "px", top:(cityOffset.top - pageContentOffset.top + cityObj.outerHeight()) + "px"}).slideDown("fast");
             //top:98px; left:135px;
             $("body").bind("mousedown", onBodyDown);
         }
