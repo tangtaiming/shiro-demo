@@ -21,7 +21,7 @@
     <div class="message">${msg}</div>
 </c:if>
 
-<div class="pageContent">
+<div class="pageContent" style="border-left:1px #B8D0D6 solid;border-right:1px #B8D0D6 solid">
     <div class="panelBar">
         <ul class="toolBar">
             <shiro:hasPermission name="user:create">
@@ -31,39 +31,41 @@
             <li><a class="edit" href="/user/{user_id}/update" target="navTab" warn="请选择一个用户"><span>修改</span></a></li>
         </ul>
     </div>
-    <div id="w_list_print">
-        <table class="list" width="100%" targetType="navTab" asc="asc" desc="desc" layoutH="98">
-            <thead>
+    <div class="grid">
+        <div id="w_list_print">
+            <table class="list" width="100%" targetType="navTab" asc="asc" desc="desc" layoutH="98">
+                <thead>
                 <tr>
                     <th>用户名</th>
                     <th>角色列表</th>
                     <th>操作</th>
                 </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${userList}" var="user" varStatus="status">
-                <tr target="user_id" rel="${user.id}">
-                    <td>${user.username}</td>
-                    <td>${function:roleNames(user.roleIds)}</td>
-                    <td>
-                        <div>
-                            <shiro:hasPermission name="user:delete">
-                                <a title="删除" href="${pageContext.request.contextPath}/user/${user.id}/delete" target="ajaxTodo" title="确定要删除吗？" class="btnDel">删除</a>
-                            </shiro:hasPermission>
-                            <shiro:hasPermission name="user:update">
-                                <a title="修改" href="${pageContext.request.contextPath}/user/${user.id}/update" target="navTab" class="btnEdit">修改</a>
-                            </shiro:hasPermission>
-                            <shiro:hasPermission name="user:update">
-                                <a title="修改密码" href="${pageContext.request.contextPath}/user/${user.id}/changePassword" target="navTab">
-                                    改密
-                                </a>
-                            </shiro:hasPermission>
-                        </div>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <c:forEach items="${userList}" var="user" varStatus="status">
+                    <tr target="user_id" rel="${user.id}">
+                        <td>${user.username}</td>
+                        <td>${function:roleNames(user.roleIds)}</td>
+                        <td>
+                            <div>
+                                <shiro:hasPermission name="user:delete">
+                                    <a title="删除" href="${pageContext.request.contextPath}/user/${user.id}/delete" target="ajaxTodo" title="确定要删除吗？" class="btnDel">删除</a>
+                                </shiro:hasPermission>
+                                <shiro:hasPermission name="user:update">
+                                    <a title="修改" href="${pageContext.request.contextPath}/user/${user.id}/update" target="navTab" class="btnEdit">修改</a>
+                                </shiro:hasPermission>
+                                <shiro:hasPermission name="user:update">
+                                    <a title="修改密码" href="${pageContext.request.contextPath}/user/${user.id}/changePassword" target="navTab">
+                                        改密
+                                    </a>
+                                </shiro:hasPermission>
+                            </div>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
     </div>
     <!--table data end--->
     <div class="panelBar" >

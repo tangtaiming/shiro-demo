@@ -9,7 +9,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--<%@taglib prefix="zhangfn" uri="http://github.com/zhangkaitao/tags/zhang-functions" %>--%>
-<h2 class="contentTitle">新增用户</h2>
+<h2 class="contentTitle">${op}用户</h2>
 <div class="pageContent">
     <form:form method="post" commandName="user" cssClass="pageForm required-validate"  onsubmit="return validateCallback(this, navTabAjaxDone);">
         <form:hidden path="id"/>

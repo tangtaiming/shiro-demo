@@ -14,9 +14,10 @@
 <style>
     ul.ztree {margin-top: 10px;border: 1px solid #617775;background: #f0f6e4;width:220px;height:200px;overflow-y:scroll;overflow-x:auto;}
 </style>
-<h2 class="contentTitle">新增用户</h2>
+<h2 class="contentTitle">${op}角色</h2>
 <div id="pageContent" class="pageContent">
     <form:form method="post" commandName="role" cssClass="pageForm required-validate"  onsubmit="return validateCallback(this, navTabAjaxDone);">
+        <form:hidden path="id"/>
         <div class="pageFormContent nowrap" layoutH="98">
             <dl>
                 <dt><form:label path="role">角色名：</form:label></dt>

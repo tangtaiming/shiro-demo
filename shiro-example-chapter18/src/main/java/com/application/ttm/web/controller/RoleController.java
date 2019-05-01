@@ -1,5 +1,6 @@
 package com.application.ttm.web.controller;
 
+import com.application.ttm.ResponseUtils;
 import com.application.ttm.entity.Role;
 import com.application.ttm.service.ResourceService;
 import com.application.ttm.service.RoleService;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -45,10 +47,12 @@ public class RoleController {
 
     @RequiresPermissions("role:create")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @ResponseBody
     public String create(Role role, RedirectAttributes redirectAttributes) {
+        System.out.println("role: " + role.toString());
         roleService.createRole(role);
-        redirectAttributes.addFlashAttribute("msg", "新增成功");
-        return "redirect:/role";
+//        redirectAttributes.addFlashAttribute("msg", "新增成功");
+        return ResponseUtils.success("/role");
     }
 
     @RequiresPermissions("role:update")
@@ -64,8 +68,8 @@ public class RoleController {
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
     public String update(Role role, RedirectAttributes redirectAttributes) {
         roleService.updateRole(role);
-        redirectAttributes.addFlashAttribute("msg", "修改成功");
-        return "redirect:/role";
+//        redirectAttributes.addFlashAttribute("msg", "修改成功");
+        return ResponseUtils.success("/role");
     }
 
     @RequiresPermissions("role:delete")
@@ -79,10 +83,11 @@ public class RoleController {
 
     @RequiresPermissions("role:delete")
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.POST)
+    @ResponseBody
     public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         roleService.deleteRole(id);
-        redirectAttributes.addFlashAttribute("msg", "删除成功");
-        return "redirect:/role";
+//        redirectAttributes.addFlashAttribute("msg", "删除成功");
+        return ResponseUtils.success("/role", "/role");
     }
 
     private void setCommonData(Model model) {
