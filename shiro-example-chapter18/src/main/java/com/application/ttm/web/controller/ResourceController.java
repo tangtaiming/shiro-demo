@@ -1,15 +1,14 @@
 package com.application.ttm.web.controller;
 
+import com.application.ttm.JsonUtils;
+import com.application.ttm.ResponseUtils;
 import com.application.ttm.entity.Resource;
 import com.application.ttm.service.ResourceService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -51,10 +50,12 @@ public class ResourceController {
 
     @RequiresPermissions("resource:create")
     @RequestMapping(value = "/{parentId}/appendChild", method = RequestMethod.POST)
+    @ResponseBody
     public String create(Resource resource, RedirectAttributes redirectAttributes) {
-        resourceService.createResource(resource);
-        redirectAttributes.addFlashAttribute("msg", "新增子节点成功");
-        return "redirect:/resource";
+//        resourceService.createResource(resource);
+//        redirectAttributes.addFlashAttribute("msg", "新增子节点成功");
+        System.out.println(JsonUtils.toJson(resource));
+        return ResponseUtils.success("/resource");
     }
 
     @RequiresPermissions("resource:update")

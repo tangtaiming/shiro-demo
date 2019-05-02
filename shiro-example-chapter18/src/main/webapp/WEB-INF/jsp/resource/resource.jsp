@@ -25,7 +25,7 @@
     <div class="panelBar">
         <ul class="toolBar">
             <shiro:hasPermission name="resource:create">
-                <li><a class="add" href="${pageContext.request.contextPath}/resource/create" target="navTab" rel="user-create"><span>资源新增</span></a></li>
+                <li><a class="add" href="${pageContext.request.contextPath}/resource/{resource_id}/appendChild" target="navTab" warn="请选择一个资源" rel="resource-create"><span>资源新增</span></a></li>
             </shiro:hasPermission>
             <li><a class="delete" href="/resource/{resource_id}/delete" target="ajaxTodo" title="确定要删除吗？" warn="请选择一个资源" callback="navTabAjaxDone"><span>删除</span></a></li>
             <li><a class="edit" href="/resource/{resource_id}/update" target="navTab" warn="请选择一个资源"><span>修改</span></a></li>
