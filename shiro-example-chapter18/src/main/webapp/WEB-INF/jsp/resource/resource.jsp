@@ -11,8 +11,14 @@
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/jquery-treetable/stylesheets/jquery.treetable.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/jquery-treetable/stylesheets/jquery.treetable.theme.default.css">
-
+<style>
+    table.treetable tr.collapsed span.indenter a {
+        background-image: url(./static/images/left.png);
+    }
+    table.treetable tr.expanded span.indenter a {
+        background-image: url(./static/images/down.png);
+    }
+</style>
 <form id="pagerForm" method="post" action="/user">
     <input type="hidden" name="status" value="${param.status}">
     <input type="hidden" name="keywords" value="${param.keywords}" />
@@ -98,10 +104,10 @@
 <script>
     $(function() {
         $("#table").treetable({ expandable: true }).treetable("expandNode", 1);
-        $(".deleteBtn").click(function() {
-            if(confirm("确认删除吗?")) {
-                location.href = "${pageContext.request.contextPath}/resource/"+$(this).data("id")+"/delete";
-            }
-        });
+        <%--$(".deleteBtn").click(function() {--%>
+        <%--    if(confirm("确认删除吗?")) {--%>
+        <%--        location.href = "${pageContext.request.contextPath}/resource/"+$(this).data("id")+"/delete";--%>
+        <%--    }--%>
+        <%--});--%>
     });
 </script>

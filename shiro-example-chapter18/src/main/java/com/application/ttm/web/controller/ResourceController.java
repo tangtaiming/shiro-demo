@@ -68,18 +68,20 @@ public class ResourceController {
 
     @RequiresPermissions("resource:update")
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
+    @ResponseBody
     public String update(Resource resource, RedirectAttributes redirectAttributes) {
         resourceService.updateResource(resource);
-        redirectAttributes.addFlashAttribute("msg", "修改成功");
-        return "redirect:/resource";
+//        redirectAttributes.addFlashAttribute("msg", "修改成功");
+        return ResponseUtils.success("/resource");
     }
 
     @RequiresPermissions("resource:delete")
-    @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/delete", method = RequestMethod.POST)
+    @ResponseBody
     public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         resourceService.deleteResource(id);
         redirectAttributes.addFlashAttribute("msg", "删除成功");
-        return "redirect:/resource";
+        return ResponseUtils.success("/resource", "/resource");
     }
 
 
