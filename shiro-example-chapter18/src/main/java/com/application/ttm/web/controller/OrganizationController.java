@@ -1,15 +1,14 @@
 package com.application.ttm.web.controller;
 
+import com.application.ttm.JsonUtils;
+import com.application.ttm.ResponseUtils;
 import com.application.ttm.entity.Organization;
 import com.application.ttm.service.OrganizationService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -25,8 +24,9 @@ public class OrganizationController {
     private OrganizationService organizationService;
 
     @RequiresPermissions("organization:view")
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
     public String index(Model model) {
+        model.addAttribute("organizationList", organizationService.findAll());
         return "organization/index";
     }
 
@@ -47,14 +47,16 @@ public class OrganizationController {
         child.setParentIds(parent.makeSelfAsParentIds());
         model.addAttribute("child", child);
         model.addAttribute("op", "新增");
-        return "organization/appendChild";
+        return "organization/dialogAppendChild";
     }
 
     @RequiresPermissions("organization:create")
     @RequestMapping(value = "/{parentId}/appendChild", method = RequestMethod.POST)
+    @ResponseBody
     public String create(Organization organization) {
+        System.out.println("json: " + JsonUtils.toJson(organization));
         organizationService.createOrganization(organization);
-        return "redirect:/organization/success";
+        return ResponseUtils.successByDialogCloseCurrent("/organization", "/organization");
     }
 
     @RequiresPermissions("organization:update")
@@ -66,18 +68,24 @@ public class OrganizationController {
 
     @RequiresPermissions("organization:update")
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
+    @ResponseBody
     public String update(Organization organization, RedirectAttributes redirectAttributes) {
+//        organization.setParentIds(organization.makeSelfAsParentIds());
+//        System.out.println("update: " + JsonUtils.toJson(organization));
+//        organization.getParentIds();
         organizationService.updateOrganization(organization);
-        redirectAttributes.addFlashAttribute("msg", "修改成功");
-        return "redirect:/organization/success";
+//        redirectAttributes.addFlashAttribute("msg", "修改成功");
+//        return "redirect:/organization/success";
+        return ResponseUtils.successByDialogCloseCurrent("/organization", "/organization");
     }
 
     @RequiresPermissions("organization:delete")
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.POST)
+    @ResponseBody
     public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         organizationService.deleteOrganization(id);
-        redirectAttributes.addFlashAttribute("msg", "删除成功");
-        return "redirect:/organization/success";
+//        redirectAttributes.addFlashAttribute("msg", "删除成功");
+        return ResponseUtils.successByForwardUrl("/organization");
     }
 
 
@@ -85,20 +93,24 @@ public class OrganizationController {
     @RequestMapping(value = "/{sourceId}/move", method = RequestMethod.GET)
     public String showMoveForm(@PathVariable("sourceId") Long sourceId, Model model) {
         Organization source = organizationService.findOne(sourceId);
+        model.addAttribute("op", "移动");
         model.addAttribute("source", source);
         model.addAttribute("targetList", organizationService.findAllWithExclude(source));
-        return "organization/move";
+        return "organization/dialogMove";
     }
 
     @RequiresPermissions("organization:update")
     @RequestMapping(value = "/{sourceId}/move", method = RequestMethod.POST)
+    @ResponseBody
     public String move(
             @PathVariable("sourceId") Long sourceId,
             @RequestParam("targetId") Long targetId) {
         Organization source = organizationService.findOne(sourceId);
         Organization target = organizationService.findOne(targetId);
         organizationService.move(source, target);
-        return "redirect:/organization/success";
+//        System.out.println("resource: " + JsonUtils.toJson(source));
+//        System.out.println("target: " + JsonUtils.toJson(target));
+        return ResponseUtils.successByDialogCloseCurrent("/organization", "/organization");
     }
 
     @RequiresPermissions("organization:view")
@@ -107,5 +119,17 @@ public class OrganizationController {
         return "organization/success";
     }
 
+    /**
+     * 修改
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequiresPermissions("organization:update")
+    @RequestMapping(value = "/{id}/update", method = RequestMethod.GET)
+    public String update(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("organization", organizationService.findOne(id));
+        return "organization/dialogEdit";
+    }
 
 }

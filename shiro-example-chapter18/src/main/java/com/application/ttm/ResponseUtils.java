@@ -21,6 +21,46 @@ public class ResponseUtils {
     }
 
     /**
+     * 成功 根据对于 callback type 返回到对应 forwardUrl
+     * @param callbackType
+     * @param forwardUrl
+     * @return
+     */
+    public static String successByCallbackTypeAndForwardUrl(String callbackType, String forwardUrl) {
+        return buildResponse(200, "操作成功", null,
+                null, callbackType, null);
+    }
+
+    /**
+     * 成功 call back typ 类型是 forward 返回到 对于 forwardUrl
+     * @param forwardUrl    返回地址
+     * @return
+     */
+    public static String successByForwardUrl(String forwardUrl) {
+        return successByCallbackTypeAndForwardUrl("forward", forwardUrl);
+    }
+
+    /**
+     * dialog 成功并且关闭弹窗 刷新指定 navTabId 到 forwardUrl
+     * @param navTabId
+     * @param forwardUrl
+     * @return
+     */
+    public static String successByDialogCloseCurrent(String navTabId, String forwardUrl) {
+        return buildResponse(200, "操作成功", navTabId,
+                null, "closeCurrent", forwardUrl);
+    }
+
+    /**
+     * dialog 成功并且关闭弹窗
+     * @return
+     */
+    public static String successByDialogCloseCurrent() {
+        return buildResponse(200, "操作成功", null,
+                null, "closeCurrent", null);
+    }
+
+    /**
      * 成功
      * @return
      */

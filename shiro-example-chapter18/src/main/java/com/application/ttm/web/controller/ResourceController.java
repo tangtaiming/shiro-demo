@@ -52,9 +52,9 @@ public class ResourceController {
     @RequestMapping(value = "/{parentId}/appendChild", method = RequestMethod.POST)
     @ResponseBody
     public String create(Resource resource, RedirectAttributes redirectAttributes) {
-//        resourceService.createResource(resource);
+        resourceService.createResource(resource);
 //        redirectAttributes.addFlashAttribute("msg", "新增子节点成功");
-        System.out.println(JsonUtils.toJson(resource));
+//        System.out.println(JsonUtils.toJson(resource));
         return ResponseUtils.success("/resource");
     }
 

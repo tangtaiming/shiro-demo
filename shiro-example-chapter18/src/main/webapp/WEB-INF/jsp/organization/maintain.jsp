@@ -9,72 +9,25 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<html>
-<head>
-    <title></title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css.css">
-</head>
-<body>
-
-<form:form id="form" method="post" commandName="organization">
-    <form:hidden path="id"/>
-    <form:hidden path="available"/>
-    <form:hidden path="parentId"/>
-    <form:hidden path="parentIds"/>
-
-    <div class="form-group">
-        <form:label path="name">名称：</form:label>
-        <form:input path="name"/>
+<div class="pageContent" style="border-left:1px #B8D0D6 solid;border-right:1px #B8D0D6 solid; border-bottom: 1px #B8D0D6 solid">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a class="edit" href="/organization/${organization.id}/update" target="dialog" mask="true"><span>修改</span></a></li>
+            <li><a class="delete" href="/organization/${organization.id}/delete" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>
+            <li><a class="add" href="/organization/${organization.id}/appendChild" target="dialog" mask="true"><span>添加子节点</span></a></li>
+            <li><a class="add" href="/organization/${organization.id}/move" target="dialog" mask="true"><span>移动子节点</span></a></li>
+        </ul>
     </div>
-    <shiro:hasPermission name="organization:update">
-        <form:button id="updateBtn">修改</form:button>
-    </shiro:hasPermission>
-
-    <shiro:hasPermission name="organization:delete">
-        <c:if test="${not organization.rootNode}">
-            <form:button id="deleteBtn">删除</form:button>
-        </c:if>
-    </shiro:hasPermission>
-
-    <shiro:hasPermission name="organization:create">
-        <form:button id="appendChildBtn">添加子节点</form:button>
-    </shiro:hasPermission>
-
-    <shiro:hasPermission name="organization:update">
-        <c:if test="${not organization.rootNode}">
-            <form:button id="moveBtn">移动节点</form:button>
-        </c:if>
-    </shiro:hasPermission>
-</form:form>
-
-<script src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.min.js"></script>
-<script>
-    $(function() {
-        $("#updateBtn").click(function() {
-            $("#form")
-                .attr("action", "${pageContext.request.contextPath}/organization/${organization.id}/update")
-                .submit();
-            return false;
-        });
-        $("#deleteBtn").click(function() {
-            if(confirm("确认删除吗？")) {
-                $("#form")
-                    .attr("action", "${pageContext.request.contextPath}/organization/${organization.id}/delete")
-                    .submit();
-            }
-            return false;
-        });
-
-        $("#appendChildBtn").click(function() {
-            location.href="${pageContext.request.contextPath}/organization/${organization.id}/appendChild";
-            return false;
-        });
-
-        $("#moveBtn").click(function() {
-            location.href="${pageContext.request.contextPath}/organization/${organization.id}/move";
-            return false;
-        });
-    });
-</script>
-</body>
-</html>
+    <form:form method="post" commandName="organization" cssClass="pageForm required-validate"  onsubmit="return validateCallback(this, navTabAjaxDone);">
+        <form:hidden path="id" />
+        <div class="pageFormContent nowrap">
+            <dl>
+                <dt><form:label path="name">名称：</form:label></dt>
+                <dd>
+                    <form:input path="name"/>
+                    <span class="info"></span>
+                </dd>
+            </dl>
+        </div>
+    </form:form>
+</div>
