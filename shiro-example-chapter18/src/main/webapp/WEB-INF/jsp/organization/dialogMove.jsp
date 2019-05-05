@@ -11,7 +11,7 @@
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/JQuery_zTree_v3.5.15/css/zTreeStyle/zTreeStyle.css">
 <style>
-    ul.ztree {margin-top: 10px;border: 1px solid #617775;background: #f0f6e4;width:240px;height:200px;overflow-y:scroll;overflow-x:auto;}
+    ul.ztreeCustom {margin-top: 10px;border: 1px solid #617775;background: #f0f6e4;width:240px;height:200px;overflow-y:scroll;overflow-x:auto;}
 </style>
 <div id="dialogMovePageContent" class="pageContent">
     <form:form method="post" commandName="source" cssClass="pageForm required-validate"  onsubmit="return validateCallback(this, dialogAjaxDone);">
@@ -36,7 +36,7 @@
     </form:form>
 </div>
 <div id="menuContent" class="menuContent" style="display:none; position: absolute;">
-    <ul id="tree_1" class="ztree" style="margin-top:0; width:160px;"></ul>
+    <ul id="tree_1" class="ztree ztreeCustom" style="margin-top:0; width:160px;"></ul>
 </div>
 <script src="${pageContext.request.contextPath}/static/JQuery_zTree_v3.5.15/js/jquery.ztree.all-3.5.min.js"></script>
 <script type="application/javascript">

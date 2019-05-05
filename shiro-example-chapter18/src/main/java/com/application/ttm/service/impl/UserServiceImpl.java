@@ -2,14 +2,19 @@ package com.application.ttm.service.impl;
 
 import com.application.ttm.JsonUtils;
 import com.application.ttm.dao.UserDao;
+import com.application.ttm.entity.Resource;
 import com.application.ttm.entity.User;
 import com.application.ttm.service.PasswordHelper;
+import com.application.ttm.service.ResourceService;
 import com.application.ttm.service.RoleService;
 import com.application.ttm.service.UserService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -29,6 +34,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private ResourceService resourceService;
 
     @Override
     public User createUser(User user) {
@@ -84,6 +92,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Set<String> findPermissions(String username) {
+        if ("admin".equals(username)) {
+            Set<String> permissions = new HashSet<>();
+            List<Resource> resources = resourceService.findAll();
+            for (Resource row : resources) {
+                String permimssion = row.getPermission();
+                System.out.println("row " + row.getType().getInfo());
+                System.out.println("resource type " + Resource.ResourceType.button.getInfo());
+                if (row.isRootNode() || row.getType().getInfo().equals(Resource.ResourceType.button.getInfo())) {
+                    continue;
+                }
+                permissions.add(permimssion);
+            }
+            return permissions;
+        }
         User user = findByUsername(username);
         if (null == user) {
             return Collections.EMPTY_SET;

@@ -66,6 +66,7 @@ public class RoleController {
 
     @RequiresPermissions("role:update")
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
+    @ResponseBody
     public String update(Role role, RedirectAttributes redirectAttributes) {
         roleService.updateRole(role);
 //        redirectAttributes.addFlashAttribute("msg", "修改成功");
