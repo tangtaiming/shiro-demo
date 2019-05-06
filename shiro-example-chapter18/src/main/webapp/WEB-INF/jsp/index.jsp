@@ -12,6 +12,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="referrer" content="never">
     <title>简单实用国产jQuery UI框架 - DWZ富客户端框架(J-UI.com)</title>
 
     <link href="/static/dwz_jui/themes/default/style.css" rel="stylesheet" type="text/css" media="screen"/>
