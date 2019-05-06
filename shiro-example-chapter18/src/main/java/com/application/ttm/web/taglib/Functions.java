@@ -6,6 +6,7 @@ import com.application.ttm.entity.Role;
 import com.application.ttm.service.ResourceService;
 import com.application.ttm.service.RoleService;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.Collection;
 
@@ -87,6 +88,10 @@ public class Functions {
             resourceService = SpringUtils.getBean(ResourceService.class);
         }
         return resourceService;
+    }
+
+    public static String doubanIntheatersReplaceImage(String image) {
+        return StringUtils.replace(image, ".jpg", ".webp");
     }
 
 }
