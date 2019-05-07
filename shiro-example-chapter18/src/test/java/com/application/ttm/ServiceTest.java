@@ -1,7 +1,10 @@
 package com.application.ttm;
 
+import com.application.ttm.entity.Authorize;
 import com.application.ttm.entity.User;
+import com.application.ttm.service.AuthorizeService;
 import com.application.ttm.service.UserService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,10 @@ public class ServiceTest {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AuthorizeService authorizeService;
+
+    @Ignore
     @Test
     public void testCreateUser() {
         User user = new User();
@@ -27,6 +34,13 @@ public class ServiceTest {
         user.setPassword("123456");
         user.setOrganizationId(-1L);
         userService.createUser(user);
+    }
+
+    @Test
+    public void testAuthoirze() {
+        Authorize authorize = new Authorize();
+        authorize.setUserId(1234L);
+        authorizeService.authorize(authorize);
     }
 
 }
