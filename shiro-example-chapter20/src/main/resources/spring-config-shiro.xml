@@ -8,6 +8,7 @@
     <!-- Realm实现 -->
     <bean id="statelessRealm" class="com.application.ttm.shiro.realm.StatelessRealm">
         <property name="cachingEnabled" value="false"/>
+        <property name="authorizeService" ref="authorizeService" />
     </bean>
 
     <!-- Subject工厂 -->
@@ -51,5 +52,11 @@
 
     <!-- Shiro生命周期处理器-->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <bean id="authorizeService" class="com.application.ttm.shiro.service.impl.AuthorizeServiceImpl" />
+
+    <bean id="authorizeDao" class="com.application.ttm.shiro.dao.impl.AuthorizeDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate" />
+    </bean>
 
 </beans>

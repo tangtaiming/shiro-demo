@@ -6,19 +6,20 @@ import java.util.Map;
 
 public class StatelessToken implements AuthenticationToken {
 
-    private String username;
+
+    private String userid;
     private Map<String, ?> params;
     private String clientDigest;
 
-    public StatelessToken(String username, Map<String, ?> params, String clientDigest) {
-        this.username = username;
+    public StatelessToken(String userid, Map<String, ?> params, String clientDigest) {
+        this.userid = userid;
         this.params = params;
         this.clientDigest = clientDigest;
     }
 
     @Override
     public Object getPrincipal() {
-        return username;
+        return userid;
     }
 
     @Override
@@ -26,12 +27,12 @@ public class StatelessToken implements AuthenticationToken {
         return clientDigest;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserid() {
+        return userid;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     public Map<String, ?> getParams() {

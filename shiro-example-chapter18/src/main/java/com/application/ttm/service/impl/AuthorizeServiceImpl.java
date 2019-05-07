@@ -27,7 +27,7 @@ public class AuthorizeServiceImpl implements AuthorizeService {
     public Authorize authorize(Authorize authorize) {
         authorize.setToken(randomNumberGenerator.nextBytes().toHex());
         System.out.println("authorize: " + JsonUtils.toJson(authorize));
-        return authorize;
+        return authorizeDao.createAuthorize(authorize);
     }
 
 }

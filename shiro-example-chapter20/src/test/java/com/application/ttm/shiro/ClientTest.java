@@ -41,16 +41,17 @@ public class ClientTest {
 
     @Test
     public void testServiceHelloSuccess() {
-        String username = "admin";
+        String userid = "1";
         String param11 = "param11";
         String param12 = "param12";
         String param2 = "param2";
-        String key = "dadadswdewq2ewdwqdwadsadasd";
+
+        String key = "c97c216013b63b07dfc66d793de4e4a1";
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("param1", param11);
         params.add("param1", param12);
         params.add("param2", param2);
-        params.add(Constants.PARAM_USERNAME, username);
+        params.add(Constants.PARAM_USERID, userid);
         params.add(Constants.PARAM_DIGEST, HmacSHA256Utils.digest(key, params));
 
         String url = UriComponentsBuilder

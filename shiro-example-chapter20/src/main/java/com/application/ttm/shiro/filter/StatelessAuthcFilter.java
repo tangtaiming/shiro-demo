@@ -51,13 +51,13 @@ public class StatelessAuthcFilter extends AccessControlFilter {
         //1、客户端生成的消息摘要
         String clientDigest = request.getParameter(Constants.PARAM_DIGEST);
         //2、客户端传入的用户身份
-        String username = request.getParameter(Constants.PARAM_USERNAME);
+        String userid = request.getParameter(Constants.PARAM_USERID);
         //3、客户端请求的参数列表
         Map<String, String[]> params = new LinkedHashMap<>(request.getParameterMap());
         params.remove(Constants.PARAM_DIGEST);
 
         //4、生成无状态Token
-        StatelessToken token = new StatelessToken(username, params, clientDigest);
+        StatelessToken token = new StatelessToken(userid, params, clientDigest);
 
         try {
             //5、委托给Realm进行登录

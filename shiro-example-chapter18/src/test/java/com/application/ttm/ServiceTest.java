@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * <p>@Author tangtaiming</p>
  * <p>@Date 2018-12-28</p>
@@ -38,8 +41,10 @@ public class ServiceTest {
 
     @Test
     public void testAuthoirze() {
+        String defaultCreateDate = "YYYY-MM-dd HH:mm:ss";
         Authorize authorize = new Authorize();
-        authorize.setUserId(1234L);
+        authorize.setUserId(1L);
+        authorize.setCreateDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern(defaultCreateDate)));
         authorizeService.authorize(authorize);
     }
 
