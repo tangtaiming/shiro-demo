@@ -15,6 +15,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.Map;
+
 public class ClientTest {
 
     private static Server server;
@@ -58,7 +60,7 @@ public class ClientTest {
                 .fromHttpUrl("http://localhost:8080/hello")
                 .queryParams(params).build().toUriString();
 
-        ResponseEntity responseEntity = restTemplate.getForEntity(url, String.class);
+        ResponseEntity responseEntity = restTemplate.getForEntity(url, String.class, Map.class);
         Assert.assertEquals("hello" + param11 + param12 + param2, responseEntity.getBody());
     }
 
