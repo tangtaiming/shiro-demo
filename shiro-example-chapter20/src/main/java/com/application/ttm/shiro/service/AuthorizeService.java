@@ -11,4 +11,11 @@ public interface AuthorizeService {
      */
     public Authorize findAuthorize(Long userId);
 
+    /**
+     * token查询
+     * @param token
+     * @return
+     */
+    public Authorize findAuthorizeByToken(String token);
+
 }

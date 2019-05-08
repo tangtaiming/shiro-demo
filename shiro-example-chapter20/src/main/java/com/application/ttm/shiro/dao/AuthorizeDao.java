@@ -12,5 +12,6 @@ public interface AuthorizeDao {
 
     public Authorize findOne(Long id);
     public List<Authorize> findAll();
+    public Authorize findAuthorizeByToken(String token);
 
 }

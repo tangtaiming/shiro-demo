@@ -65,4 +65,14 @@ public class AuthorizeDaoImpl implements AuthorizeDao {
         List<Authorize> authorizes = jdbcTemplate.query(sql, new BeanPropertyRowMapper(Authorize.class));
         return authorizes;
     }
+
+    @Override
+    public Authorize findAuthorizeByToken(String token) {
+        final String sql = "select id, token, create_date, user_id from sys_authorize where token=?";
+        List<Authorize> authorizes = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Authorize.class), token);
+        if (CollectionUtils.isEmpty(authorizes)) {
+            return null;
+        }
+        return authorizes.get(0);
+    }
 }

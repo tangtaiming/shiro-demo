@@ -36,14 +36,15 @@ public class StatelessRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         StatelessToken token = (StatelessToken) authenticationToken;
-        String username = ((StatelessToken) authenticationToken).getUserid();
-        //根据用户名获取密钥（和客户端的一样）
-        String key = getKey(username);
-        String serverDigest = HmacSHA256Utils.digest(key, token.getParams());
+//        String username = ((StatelessToken) authenticationToken).getUserid();
+
+        Authorize authorize = queryToken(token.getClientDigest());
+        //根据用户名获取token（和客户端的一样）
+//        String serverDigest = HmacSHA256Utils.digest(key, token.getParams());
         System.out.println(token.getClientDigest());
-        System.out.println(serverDigest);
+        System.out.println(authorize.getToken());
         //然后进行客户端消息摘要和服务器端消息摘要的匹配
-        return new SimpleAuthenticationInfo(username, serverDigest, getName());
+        return new SimpleAuthenticationInfo(authorize.toString(), authorize.getToken(), getName());
     }
 
     private String getKey(String userId) {
@@ -53,6 +54,14 @@ public class StatelessRealm extends AuthorizingRealm {
             return authorize.getToken();
         }
         return null;
+    }
+
+    private Authorize queryToken(String token) {
+        Authorize authorize = authorizeService.findAuthorizeByToken(token);
+        if (!(null == authorize)) {
+            return authorize;
+        }
+        throw new IllegalArgumentException("Authorize query null, fail!");
     }
 
     public void setAuthorizeService(AuthorizeService authorizeService) {

@@ -22,4 +22,15 @@ public class AuthorizeServiceImpl implements AuthorizeService {
     public Authorize findAuthorize(Long userId) {
         return authorizeDao.findOne(userId);
     }
+
+    /**
+     * token查询
+     *
+     * @param token
+     * @return
+     */
+    @Override
+    public Authorize findAuthorizeByToken(String token) {
+        return authorizeDao.findAuthorizeByToken(token);
+    }
 }
