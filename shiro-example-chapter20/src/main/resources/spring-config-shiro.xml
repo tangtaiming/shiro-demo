@@ -44,6 +44,7 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
+                /favicon.ico=anon
                 /**=statelessAuthc
             </value>
         </property>
