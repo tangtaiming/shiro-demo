@@ -2,6 +2,7 @@ package com.application.ttm.shiro.dao.impl;
 
 import com.application.ttm.shiro.dao.AuthorizeDao;
 import com.application.ttm.shiro.entity.Authorize;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -52,7 +53,7 @@ public class AuthorizeDaoImpl implements AuthorizeDao {
     public Authorize findOne(Long id) {
         final String sql = "select id, token, create_date, user_id from sys_authorize where id=?";
         List<Authorize> authorizes = jdbcTemplate.query(sql, new BeanPropertyRowMapper(Authorize.class), id);
-        if (null == authorizes) {
+        if (CollectionUtils.isEmpty(authorizes)) {
             return null;
         }
         return authorizes.get(0);
@@ -63,9 +64,5 @@ public class AuthorizeDaoImpl implements AuthorizeDao {
         final String sql = "select id, token, create_date, user_id from sys_authorize";
         List<Authorize> authorizes = jdbcTemplate.query(sql, new BeanPropertyRowMapper(Authorize.class));
         return authorizes;
-    }
-
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
     }
 }

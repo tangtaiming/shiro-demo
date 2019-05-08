@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class StatelessAuthcFilter extends AccessControlFilter {
 
@@ -53,7 +54,7 @@ public class StatelessAuthcFilter extends AccessControlFilter {
         //2、客户端传入的用户身份
         String userid = request.getParameter(Constants.PARAM_USERID);
         //3、客户端请求的参数列表
-        Map<String, String[]> params = new LinkedHashMap<>(request.getParameterMap());
+        Map<String, String[]> params = new TreeMap<>(request.getParameterMap());
         params.remove(Constants.PARAM_DIGEST);
 
         //4、生成无状态Token

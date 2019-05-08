@@ -46,7 +46,7 @@ public class ClientTest {
         String param12 = "param12";
         String param2 = "param2";
 
-        String key = "c97c216013b63b07dfc66d793de4e4a1";
+        String key = "507e42bcade6f72f26e55fc7534b03f6";
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("param1", param11);
         params.add("param1", param12);
