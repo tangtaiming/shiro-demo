@@ -43,4 +43,11 @@
         <function-signature>java.lang.String doubanIntheatersReplaceImage(java.lang.String)</function-signature>
     </function>
 
+    <function>
+        <description>用户id获取用户名称</description>
+        <name>findNameByUserId</name>
+        <function-class>com.application.ttm.web.taglib.Functions</function-class>
+        <function-signature>java.lang.String findNameByUserId(java.lang.Long)</function-signature>
+    </function>
+
 </taglib>

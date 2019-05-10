@@ -94,4 +94,13 @@ public class Functions {
         return StringUtils.replace(image, ".jpg", ".webp");
     }
 
+    public static String findNameByUserId(Long userId) {
+        String name = "未进行用户数据查询 TODO";
+        Long systemId = -999L;
+        if (systemId.equals(userId)) {
+            name = "系统";
+        }
+        return name;
+    }
+
 }
