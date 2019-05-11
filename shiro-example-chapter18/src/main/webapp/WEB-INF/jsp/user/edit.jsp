@@ -20,9 +20,16 @@
         </c:if>
         <div class="pageFormContent nowrap" layoutH="98">
             <dl>
-                <dt><form:label path="username">用户名：</form:label></dt>
+                <dt><form:label path="username">登陆名：</form:label></dt>
                 <dd>
                     <form:input path="username"/>
+                    <span class="info"></span>
+                </dd>
+            </dl>
+            <dl>
+                <dt><form:label path="name">用户名：</form:label></dt>
+                <dd>
+                    <form:input path="name"/>
                     <span class="info"></span>
                 </dd>
             </dl>

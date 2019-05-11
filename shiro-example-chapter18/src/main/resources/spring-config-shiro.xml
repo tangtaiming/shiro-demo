@@ -107,6 +107,7 @@
     </bean>
 
     <bean id="sysUserFilter" class="com.application.ttm.web.shiro.filter.SysUserFilter"/>
+    <bean id="sysLoginAjaxFilter" class="com.application.ttm.web.shiro.filter.ShiroLoginFilter"></bean>
 
     <!-- Shiro的Web过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -117,6 +118,7 @@
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
                 <entry key="sysUser" value-ref="sysUserFilter"/>
                 <entry key="kickout" value-ref="kickoutSessionControlFilter"/>
+                <entry key="loginAjax" value-ref="sysLoginAjaxFilter" />
             </util:map>
         </property>
         <property name="filterChainDefinitions">
@@ -126,7 +128,7 @@
                 /login = authc
                 /logout = logout
                 /authenticated = authc
-                /** = kickout,user,sysUser
+                /** = kickout,loginAjax,user,sysUser
             </value>
         </property>
     </bean>

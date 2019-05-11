@@ -103,4 +103,34 @@ public class Functions {
         return name;
     }
 
+    /**
+     * 阴阳师稀有度名称
+     * @param rarity
+     * @return
+     */
+    public static String rarityName(Integer rarity) {
+        String rarityName = null;
+        switch (rarity) {
+            case 1:
+                rarityName = "N";
+                break;
+            case 2:
+                rarityName = "R";
+                break;
+            case 3:
+                rarityName = "SR";
+                break;
+            case 4:
+                rarityName = "SSR";
+                break;
+            case 5:
+                rarityName = "SP";
+                break;
+            default:
+                rarityName = rarity.toString();
+                break;
+        }
+        return rarityName;
+    }
+
 }

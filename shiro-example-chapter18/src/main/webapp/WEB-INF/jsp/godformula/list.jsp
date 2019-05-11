@@ -53,7 +53,7 @@
                         <td>
                             <img src="${godformula.image}" width="120" height="120">
                         </td>
-                        <td>${godformula.rarity}</td>
+                        <td>${function:rarityName(godformula.rarity)}</td>
                         <td>${function:findNameByUserId(godformula.creator)}</td>
                         <td>${godformula.createDate}</td>
                         <td>

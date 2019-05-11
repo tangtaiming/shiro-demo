@@ -36,7 +36,8 @@
             <table class="list" width="100%" targetType="navTab" asc="asc" desc="desc" layoutH="98">
                 <thead>
                 <tr>
-                    <th>用户名</th>
+                    <th>登陆名</th>
+                    <th>用户</th>
                     <th>角色列表</th>
                     <th>操作</th>
                 </tr>
@@ -45,6 +46,7 @@
                 <c:forEach items="${userList}" var="user" varStatus="status">
                     <tr target="user_id" rel="${user.id}">
                         <td>${user.username}</td>
+                        <td>${user.name}</td>
                         <td>${function:roleNames(user.roleIds)}</td>
                         <td>
                             <div>

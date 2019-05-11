@@ -21,6 +21,14 @@ public class ResponseUtils {
     }
 
     /**
+     * 会话超时
+     * @return
+     */
+    public static String loginFail() {
+        return buildResponse(301, "会话超时", null, null, "closeCurrentDialog", null);
+    }
+
+    /**
      * 成功 根据对于 callback type 返回到对应 forwardUrl
      * @param callbackType
      * @param forwardUrl

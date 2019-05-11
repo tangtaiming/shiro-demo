@@ -50,4 +50,11 @@
         <function-signature>java.lang.String findNameByUserId(java.lang.Long)</function-signature>
     </function>
 
+    <function>
+        <description>阴阳师稀有度</description>
+        <name>rarityName</name>
+        <function-class>com.application.ttm.web.taglib.Functions</function-class>
+        <function-signature>java.lang.String rarityName(java.lang.Integer)</function-signature>
+    </function>
+
 </taglib>

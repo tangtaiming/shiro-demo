@@ -208,7 +208,7 @@ var DWZ = {
 					var json = DWZ.jsonEval(response);
 					
 					if (json[DWZ.keys.statusCode]==DWZ.statusCode.error){
-						if ($.pdialog) $.pdialog.checkCloseCurrent(json);
+						if ($.pdialog && $.pdialog._current) $.pdialog.checkCloseCurrent(json);
 						if (navTab) navTab.checkCloseCurrent(json);
 
 						if (json[DWZ.keys.message]) alertMsg.error(json[DWZ.keys.message]);
@@ -219,7 +219,7 @@ var DWZ = {
 
 
 					if (json[DWZ.keys.statusCode]==DWZ.statusCode.timeout){
-						if ($.pdialog) $.pdialog.checkCloseCurrent(json);
+						if ($.pdialog && $.pdialog._current) $.pdialog.checkCloseCurrent(json);
 						if (navTab) navTab.checkCloseCurrent(json);
 
 						alertMsg.error(json[DWZ.keys.message] || DWZ.msg("sessionTimout"), {okCall:function(){

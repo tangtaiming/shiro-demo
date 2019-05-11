@@ -15,7 +15,8 @@ import java.util.List;
 public class User implements Serializable {
     private Long id; //编号
     private Long organizationId; //所属公司
-    private String username; //用户名
+    private String username; //登录名
+    private String name;    //用户名
     private String password; //密码
     private String salt; //加密密码的盐
     private List<Long> roleIds; //拥有的角色列表
@@ -27,6 +28,14 @@ public class User implements Serializable {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getId() {

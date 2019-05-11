@@ -25,7 +25,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User createUser(User user) {
-        final String sql = "insert into sys_user(organization_id, username, password, salt, role_ids, locked) values(?, ?, ?, ?, ?, ?)";
+        final String sql = "insert into sys_user(organization_id, username, password, salt, role_ids, locked, name) values(?, ?, ?, ?, ?, ?, ?)";
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
@@ -36,6 +36,7 @@ public class UserDaoImpl implements UserDao {
             ps.setString(4, user.getSalt());
             ps.setString(5, user.getRoleIdsStr());
             ps.setBoolean(6, user.getLocked());
+            ps.setString(7, user.getName());
             return ps;
         }, keyHolder);
 
@@ -45,9 +46,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User updateUser(User user) {
-        final String sql = "update sys_user set organization_id=?,username=?, password=?, salt=?, role_ids=?, locked=? where id=?";
+        final String sql = "update sys_user set organization_id=?, username=?, password=?, salt=?, role_ids=?, locked=?, name=? where id=?";
 
-        jdbcTemplate.update(sql, user.getOrganizationId(), user.getUsername(), user.getPassword(), user.getSalt(), user.getRoleIdsStr(), user.getLocked(), user.getId());
+        jdbcTemplate.update(sql, user.getOrganizationId(), user.getUsername(), user.getPassword(), user.getSalt(), user.getRoleIdsStr(), user.getLocked(), user.getName(), user.getId());
         return user;
     }
 
@@ -60,7 +61,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findOne(Long userId) {
-        final String sql = "select id, organization_id, username, password, salt, role_ids as roleIdsStr, locked from sys_user where id=?";
+        final String sql = "select id, organization_id, username, password, salt, role_ids as roleIdsStr, locked, name from sys_user where id=?";
 
         List<User> userList = jdbcTemplate.query(sql, new BeanPropertyRowMapper(User.class), userId);
         return CollectionUtils.isEmpty(userList) ? null : userList.get(0);
@@ -68,7 +69,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> findAll() {
-        final String sql = "select id, organization_id, username, password, salt, role_ids as roleIdsStr, locked from sys_user";
+        final String sql = "select id, organization_id, username, password, salt, role_ids as roleIdsStr, locked, name from sys_user";
 
         List<User> userList = jdbcTemplate.query(sql, new BeanPropertyRowMapper(User.class));
         return CollectionUtils.isEmpty(userList) ? null : userList;
@@ -76,7 +77,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findByUsername(String username) {
-        final String sql = "select id, organization_id, username, password, salt, role_ids as roleIdsStr, locked from sys_user where username=?";
+        final String sql = "select id, organization_id, username, password, salt, role_ids as roleIdsStr, locked, name from sys_user where username=?";
 
         List<User> userList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class), username);
         return CollectionUtils.isEmpty(userList) ? null : userList.get(0);
