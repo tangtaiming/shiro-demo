@@ -14,12 +14,20 @@ public class ResponseUtils<T> {
     private T data;
     private String msg;
 
+    /**
+     * 失败
+     * @return
+     */
+    public static Map<String, Object> fail() {
+        return buildResponse(401, "Authorization failure", null);
+    }
+
     public static <T> Map<String, Object> success(T data) {
-        return buildResponse(200, data, "success");
+        return buildResponse(200, data, "Success");
     }
 
     public static Map<String, Object> success() {
-        return buildResponse(200, null, "success");
+        return buildResponse(200, null, "Success");
     }
 
     public static <T> Map<String, Object> buildResponse(int re, T data, String msg) {

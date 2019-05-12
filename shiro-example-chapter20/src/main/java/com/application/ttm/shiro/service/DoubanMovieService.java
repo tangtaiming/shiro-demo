@@ -1,6 +1,8 @@
 package com.application.ttm.shiro.service;
 
 import com.application.ttm.shiro.entity.DoubanMovie;
+import com.application.ttm.shiro.web.vo.DoubanMovieIntheatersRsVo;
+import com.application.ttm.shiro.web.vo.DoubanMovieTop250RsVo;
 
 import java.util.List;
 
@@ -13,6 +15,9 @@ public interface DoubanMovieService {
 
     public List<DoubanMovie> findAll();
     public List<DoubanMovie> findDoubanMovieByTop250();
+    public List<DoubanMovieTop250RsVo> findDoubanMovieByTop250(int start, int count);
+
     public List<DoubanMovie> findDoubanMovieByIntheaters();
+    public List<DoubanMovieIntheatersRsVo> findDoubanMovieByIntheaters(int start, int count);
 
 }

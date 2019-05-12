@@ -24,7 +24,7 @@ public class DoubanMovieDaoImpl implements DoubanMovieDao {
 
     @Override
     public List<DoubanMovie> findAll() {
-        final String sql = "select id, title, small_image, douben_intheaters_id, year, stars, average, original_title from sys_douban_movie";
+        final String sql = "select id, title, small_image, douben_intheaters_id as doubenIntheatersId, year, stars, average, original_title from sys_douban_movie";
         List<DoubanMovie> doubanMovieList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(DoubanMovie.class));
 
         return CollectionUtils.isEmpty(doubanMovieList) ? new ArrayList<>() : doubanMovieList;
@@ -32,17 +32,33 @@ public class DoubanMovieDaoImpl implements DoubanMovieDao {
 
     @Override
     public List<DoubanMovie> findDoubanMovieByTop250() {
-        final String sql = "select id, title, small_image, douben_intheaters_id, year, stars, average, original_title from sys_douban_movie where top250=?";
+        final String sql = "select id, title, small_image, douben_intheaters_id as doubenIntheatersId, year, stars, average, original_title from sys_douban_movie where top250=?";
         List<DoubanMovie> doubanMovieList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(DoubanMovie.class), 1);
 
         return CollectionUtils.isEmpty(doubanMovieList) ? new ArrayList<>() : doubanMovieList;
     }
 
     @Override
+    public List<DoubanMovie> findDoubanMovieByTop250Page(int start, int count) {
+        final String sql = "select id, title, small_image, douben_intheaters_id as doubenIntheatersId, year, stars, average, original_title from sys_douban_movie where top250=? limit ?, ?";
+        List<DoubanMovie> doubanMovieList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(DoubanMovie.class), 1, start, count);
+
+        return CollectionUtils.isEmpty(doubanMovieList) ? new ArrayList<>() : doubanMovieList;
+    }
+
+    @Override
     public List<DoubanMovie> findDoubanMovieByIntheaters() {
-        final String sql = "select id, title, small_image, douben_intheaters_id, year, stars, average, original_title from sys_douban_movie where intheaters=?";
+        final String sql = "select id, title, small_image, douben_intheaters_id as doubenIntheatersId, year, stars, average, original_title from sys_douban_movie where intheaters=?";
         List<DoubanMovie> doubanMovieList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(DoubanMovie.class), 1);
 
         return CollectionUtils.isEmpty(doubanMovieList) ? new ArrayList<>() : doubanMovieList;
+    }
+
+    @Override
+    public List<DoubanMovie> findDoubanMovieByIntheatersPage(int start, int count) {
+        final String sql = "select id, title, small_image, douben_intheaters_id as doubenIntheatersId, year, stars, average, original_title from sys_douban_movie where intheaters=? limit ?, ?";
+        List<DoubanMovie> doubanMovieList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(DoubanMovie.class), 1, start, count);
+
+        return doubanMovieList;
     }
 }

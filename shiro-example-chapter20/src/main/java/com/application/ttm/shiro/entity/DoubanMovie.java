@@ -70,6 +70,37 @@ public class DoubanMovie {
      */
     private int top250;
 
+    public DoubanMovie() {}
+
+//    doubanMovie.setTitle(intheatersRsVo.getTitle());
+//            doubanMovie.setDoubenInTheatersId(intheatersRsVo.getDoubenInTheatersId());
+//            doubanMovie.setAverage(intheatersRsVo.getAverage());
+//            doubanMovie.setOriginalTitle(intheatersRsVo.getOriginalTitle());
+//            doubanMovie.setSmallImage(intheatersRsVo.getSmallImage());
+//            doubanMovie.setStars(intheatersRsVo.getStars());
+//            doubanMovie.setYear(intheatersRsVo.getYear());
+
+
+    /**
+     *
+     * @param title
+     * @param smallImage
+     * @param doubenInTheatersId
+     * @param year
+     * @param stars
+     * @param average
+     * @param originalTitle
+     */
+    public DoubanMovie(String title, String smallImage, Long doubenInTheatersId, String year, String stars, Integer average, String originalTitle) {
+        this.title = title;
+        this.smallImage = smallImage;
+        this.doubenInTheatersId = doubenInTheatersId;
+        this.year = year;
+        this.stars = stars;
+        this.average = average;
+        this.originalTitle = originalTitle;
+    }
+
     public Integer getId() {
         return id;
     }

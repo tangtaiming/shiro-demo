@@ -1,7 +1,9 @@
 package com.application.ttm.shiro.filter;
 
 import com.application.ttm.shiro.Constants;
+import com.application.ttm.shiro.JsonUtils;
 import com.application.ttm.shiro.realm.StatelessToken;
+import com.application.ttm.shiro.web.response.ResponseUtils;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -75,7 +77,7 @@ public class StatelessAuthcFilter extends AccessControlFilter {
     private void onLoginFail(ServletResponse response) throws IOException {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        httpResponse.getWriter().write("login error");
+        httpResponse.getWriter().write(JsonUtils.toJson(ResponseUtils.fail()));
     }
 
 }

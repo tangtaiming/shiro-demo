@@ -13,6 +13,9 @@ public interface DoubanMovieDao {
 
     public List<DoubanMovie> findAll();
     public List<DoubanMovie> findDoubanMovieByTop250();
+    public List<DoubanMovie> findDoubanMovieByTop250Page(int start, int count);
+
     public List<DoubanMovie> findDoubanMovieByIntheaters();
+    public List<DoubanMovie> findDoubanMovieByIntheatersPage(int start, int count);
 
 }
