@@ -8,10 +8,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -30,9 +27,12 @@ public class RoleController {
     private ResourceService resourceService;
 
     @RequiresPermissions("role:view")
-    @RequestMapping(method = RequestMethod.GET)
-    public String list(Model model) {
-        model.addAttribute("roleList", roleService.findAll());
+    @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET})
+    public String list(Model model,
+                       @RequestParam(value = "pageNum", defaultValue = "1", required = false) int pageNum,
+                       @RequestParam(value = "numPerPage", defaultValue = "20", required = false) int numPerPage) {
+        System.out.println("pageNumber: " + pageNum + " numPerPage: " + numPerPage);
+        model.addAttribute("roleList", roleService.findList(pageNum, numPerPage));
         return "role/list";
     }
 

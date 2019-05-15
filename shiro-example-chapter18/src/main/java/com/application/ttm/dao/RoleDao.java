@@ -17,5 +17,6 @@ public interface RoleDao {
 
     public Role findOne(Long roleId);
     public List<Role> findAll();
+    public List<Role> findList(int pageNumber, int pageSize);
 
 }

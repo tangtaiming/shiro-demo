@@ -9,7 +9,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="function" uri="http://github.com/tangtaiming/tags/ttm-functions" %>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<form id="pagerForm" method="post" action="/user">
+<form id="pagerForm" method="post" action="/role">
     <input type="hidden" name="status" value="${param.status}">
     <input type="hidden" name="keywords" value="${param.keywords}" />
     <input type="hidden" name="pageNum" value="1" />

@@ -18,6 +18,7 @@ public interface RoleService {
 
     public Role findOne(Long roleId);
     public List<Role> findAll();
+    public List<Role> findList(int pageNumber, int pageSize);
 
     /**
      * 根据角色编号得到角色标识符列表
@@ -32,5 +33,7 @@ public interface RoleService {
      * @return
      */
     Set<String> findPermissions(Long[] roleIds);
+
+
 
 }

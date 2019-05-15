@@ -11,6 +11,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -68,7 +69,15 @@ public class RoleDaoImpl implements RoleDao {
         final String sql = "select id, role, description, resource_ids as resourceIdsStr, available from sys_role";
 
         List<Role> roleList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Role.class));
-        return CollectionUtils.isEmpty(roleList) ? null : roleList;
+        return CollectionUtils.isEmpty(roleList) ? new ArrayList<>() : roleList;
+    }
+
+    @Override
+    public List<Role> findList(int pageNumber, int pageSize) {
+        final String sql = "select id, role, description, resource_ids as resourceIdsStr, available from sys_role limit ?, ?";
+
+        List<Role> roleList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Role.class), pageNumber, pageSize);
+        return CollectionUtils.isEmpty(roleList) ? new ArrayList<>() : roleList;
     }
 
 }

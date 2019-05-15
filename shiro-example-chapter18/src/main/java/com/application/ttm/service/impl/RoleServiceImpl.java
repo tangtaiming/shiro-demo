@@ -52,6 +52,12 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public List<Role> findList(int pageNumber, int pageSize) {
+        int index = (pageNumber - 1) * pageSize;
+        return roleDao.findList(index, pageSize);
+    }
+
+    @Override
     public Set<String> findRoles(Long... roleIds) {
         Set<String> roles = new HashSet<>();
         for (Long roleId : roleIds) {

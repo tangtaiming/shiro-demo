@@ -6,7 +6,6 @@ import com.application.ttm.shiro.web.response.ResponseUtils;
 import com.application.ttm.shiro.web.vo.DoubanMovieIntheatersRsVo;
 import com.application.ttm.shiro.web.vo.DoubanMovieTop250RsVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
