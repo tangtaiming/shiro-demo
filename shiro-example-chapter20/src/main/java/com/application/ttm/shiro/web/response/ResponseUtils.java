@@ -19,7 +19,7 @@ public class ResponseUtils<T> {
      * @return
      */
     public static Map<String, Object> fail() {
-        return buildResponse(401, "Authorization failure", null);
+        return buildResponse(401, "Invalid apikey", null);
     }
 
     public static <T> Map<String, Object> success(T data) {

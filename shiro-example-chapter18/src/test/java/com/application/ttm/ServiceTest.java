@@ -29,6 +29,13 @@ public class ServiceTest {
     @Autowired
     private AuthorizeService authorizeService;
 
+    @Test
+    public void testUpdate() {
+//        User usr = userService.findOne(1L);
+//        usr.setPassword("123456");
+        userService.changePassword(1L, "123456");
+    }
+
     @Ignore
     @Test
     public void testCreateUser() {

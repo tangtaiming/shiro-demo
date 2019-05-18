@@ -30,6 +30,19 @@ public class DoubanMovieController {
         return ResponseUtils.success(doubanMovieList);
     }
 
+
+    /**
+     * 测试接口
+     * @param param
+     * @return
+     */
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> testRequest(@RequestParam Map<String, Object> param) {
+        System.out.println("param: " + param.toString());
+        return ResponseUtils.success();
+    }
+
     /**
      * top250
      * @param start 起使位置
