@@ -1,9 +1,12 @@
 package com.application.ttm.service.impl;
 
+import com.alibaba.druid.sql.PagerUtils;
 import com.application.ttm.JsonUtils;
+import com.application.ttm.PageUtils;
 import com.application.ttm.dao.ResourceDao;
 import com.application.ttm.dao.RoleDao;
 import com.application.ttm.entity.Role;
+import com.application.ttm.service.PageService;
 import com.application.ttm.service.ResourceService;
 import com.application.ttm.service.RoleService;
 import org.apache.commons.lang.StringUtils;
@@ -92,20 +95,12 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Integer getPageNum(Map<String, Object> param) {
-        String pageNum = (String) param.get("pageNum");
-        if (StringUtils.isEmpty(pageNum)) {
-            pageNum = "1";
-        }
-        return Integer.valueOf(pageNum);
+    public int getPageNum(Map<String, Object> param) {
+        return PageUtils.getPageNum(param);
     }
 
     @Override
-    public Integer getNumPerPage(Map<String, Object> param) {
-        String numPerPage = (String) param.get("numPerPage");
-        if (StringUtils.isEmpty(numPerPage)) {
-            numPerPage = "20";
-        }
-        return Integer.valueOf(numPerPage);
+    public int getNumPerPage(Map<String, Object> param) {
+        return PageUtils.getNumPerPage(param);
     }
 }

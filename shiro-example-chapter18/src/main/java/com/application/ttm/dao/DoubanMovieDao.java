@@ -12,8 +12,9 @@ public interface DoubanMovieDao {
     boolean deleteDoubanMovie(Long id);
 
     List<DoubanMovie> findAll();
-    List<DoubanMovie> findList(Map<String, Object> param);
+    List<DoubanMovie> findList(int first, int pageSize);
     DoubanMovie findOne(Long id);
+    int count();
 
 
 }
