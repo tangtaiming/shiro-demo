@@ -1,15 +1,18 @@
 package com.application.ttm.service.impl;
 
+import com.application.ttm.JsonUtils;
 import com.application.ttm.dao.ResourceDao;
 import com.application.ttm.dao.RoleDao;
 import com.application.ttm.entity.Role;
 import com.application.ttm.service.ResourceService;
 import com.application.ttm.service.RoleService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -58,6 +61,13 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public List<Role> findList(Map<String, Object> param) {
+        Integer pageSize = Integer.valueOf(getNumPerPage(param));
+        Integer first = (getPageNum(param) - 1) * pageSize;
+        return roleDao.findList(first, pageSize);
+    }
+
+    @Override
     public Set<String> findRoles(Long... roleIds) {
         Set<String> roles = new HashSet<>();
         for (Long roleId : roleIds) {
@@ -81,4 +91,21 @@ public class RoleServiceImpl implements RoleService {
         return resourceService.findPermissions(resourcesIds);
     }
 
+    @Override
+    public Integer getPageNum(Map<String, Object> param) {
+        String pageNum = (String) param.get("pageNum");
+        if (StringUtils.isEmpty(pageNum)) {
+            pageNum = "1";
+        }
+        return Integer.valueOf(pageNum);
+    }
+
+    @Override
+    public Integer getNumPerPage(Map<String, Object> param) {
+        String numPerPage = (String) param.get("numPerPage");
+        if (StringUtils.isEmpty(numPerPage)) {
+            numPerPage = "20";
+        }
+        return Integer.valueOf(numPerPage);
+    }
 }

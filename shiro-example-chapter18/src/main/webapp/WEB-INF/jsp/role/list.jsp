@@ -12,8 +12,8 @@
 <form id="pagerForm" method="post" action="/role">
     <input type="hidden" name="status" value="${param.status}">
     <input type="hidden" name="keywords" value="${param.keywords}" />
-    <input type="hidden" name="pageNum" value="1" />
-    <input type="hidden" name="numPerPage" value="20" />
+    <input type="hidden" name="pageNum" value="${pageNum}" />
+    <input type="hidden" name="numPerPage" value="${numPerPage}" />
     <input type="hidden" name="orderField" value="asc" />
 </form>
 
@@ -72,9 +72,9 @@
                 <option value="100">100</option>
                 <option value="200">200</option>
             </select>
-            <span>条，共23条</span>
+            <span>条，共${totalCount}条</span>
         </div>
-        <div class="pagination" targetType="navTab" totalCount="200" numPerPage="20" pageNumShown="10" currentPage="1"></div>
+        <div class="pagination" targetType="navTab" totalCount="${totalCount}" numPerPage="${numPerPage}" pageNumShown="${pageNum}" currentPage="${pageNum}"></div>
     </div>
     <!--table pager end--->
 </div>
