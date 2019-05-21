@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>@Author tangtaiming</p>
  * <p>@Date 2018-12-29</p>
@@ -28,11 +31,12 @@ public class RoleController {
 
     @RequiresPermissions("role:view")
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET})
-    public String list(Model model,
-                       @RequestParam(value = "pageNum", defaultValue = "1", required = false) int pageNum,
-                       @RequestParam(value = "numPerPage", defaultValue = "20", required = false) int numPerPage) {
-        System.out.println("pageNumber: " + pageNum + " numPerPage: " + numPerPage);
-        model.addAttribute("roleList", roleService.findList(pageNum, numPerPage));
+    public String list(Model model, @RequestParam Map<String, Object> param) {
+        List<Role> roles = roleService.findList(param);
+        model.addAttribute("roleList", roles);
+        model.addAttribute("pageNum", roleService.getPageNum(param));
+        model.addAttribute("numPerPage", roleService.getNumPerPage(param));
+        model.addAttribute("totalCount", roles.size());
         return "role/list";
     }
 

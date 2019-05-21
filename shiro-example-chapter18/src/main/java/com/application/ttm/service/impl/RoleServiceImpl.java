@@ -1,15 +1,21 @@
 package com.application.ttm.service.impl;
 
+import com.alibaba.druid.sql.PagerUtils;
+import com.application.ttm.JsonUtils;
+import com.application.ttm.PageUtils;
 import com.application.ttm.dao.ResourceDao;
 import com.application.ttm.dao.RoleDao;
 import com.application.ttm.entity.Role;
+import com.application.ttm.service.PageService;
 import com.application.ttm.service.ResourceService;
 import com.application.ttm.service.RoleService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -58,6 +64,13 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public List<Role> findList(Map<String, Object> param) {
+        Integer pageSize = Integer.valueOf(getNumPerPage(param));
+        Integer first = (getPageNum(param) - 1) * pageSize;
+        return roleDao.findList(first, pageSize);
+    }
+
+    @Override
     public Set<String> findRoles(Long... roleIds) {
         Set<String> roles = new HashSet<>();
         for (Long roleId : roleIds) {
@@ -81,4 +94,13 @@ public class RoleServiceImpl implements RoleService {
         return resourceService.findPermissions(resourcesIds);
     }
 
+    @Override
+    public int getPageNum(Map<String, Object> param) {
+        return PageUtils.getPageNum(param);
+    }
+
+    @Override
+    public int getNumPerPage(Map<String, Object> param) {
+        return PageUtils.getNumPerPage(param);
+    }
 }

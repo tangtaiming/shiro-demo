@@ -3,6 +3,7 @@ package com.application.ttm;
 import com.application.ttm.entity.Authorize;
 import com.application.ttm.entity.User;
 import com.application.ttm.service.AuthorizeService;
+import com.application.ttm.service.DoubanMovieService;
 import com.application.ttm.service.UserService;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -36,6 +37,9 @@ public class ServiceTest {
         userService.changePassword(1L, "123456");
     }
 
+    @Autowired
+    private DoubanMovieService doubanMovieService;
+
     @Ignore
     @Test
     public void testCreateUser() {
@@ -53,6 +57,12 @@ public class ServiceTest {
         authorize.setUserId(1L);
         authorize.setCreateDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern(defaultCreateDate)));
         authorizeService.authorize(authorize);
+    }
+
+    @Ignore
+    @Test
+    public void testCount() {
+        System.out.println(doubanMovieService.count());
     }
 
 }
