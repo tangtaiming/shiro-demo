@@ -81,10 +81,10 @@
         <div class="pages">
             <span>显示</span>
             <select name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-                <option value="200">200</option>
+                <option <c:if test="${20 == numPerPage}">selected="selected"</c:if> value="20">20</option>
+                <option <c:if test="${50 == numPerPage}">selected="selected"</c:if> value="50">50</option>
+                <option <c:if test="${100 == numPerPage}">selected="selected"</c:if> value="100">100</option>
+                <option <c:if test="${200 == numPerPage}">selected="selected"</c:if> value="200">200</option>
             </select>
             <span>条，共${totalCount}条</span>
         </div>
