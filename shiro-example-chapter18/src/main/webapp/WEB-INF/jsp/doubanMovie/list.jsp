@@ -88,7 +88,7 @@
             </select>
             <span>条，共${totalCount}条</span>
         </div>
-        <div class="pagination" targetType="navTab" totalCount="${totalCount}" numPerPage="${numPerPage}" pageNumShown="${numPerPage}" currentPage="${pageNum}"></div>
+        <div class="pagination" targetType="navTab" totalCount="${totalCount}" numPerPage="${numPerPage}" pageNumShown="5" currentPage="${pageNum}"></div>
     </div>
     <!--table pager end--->
 </div>
