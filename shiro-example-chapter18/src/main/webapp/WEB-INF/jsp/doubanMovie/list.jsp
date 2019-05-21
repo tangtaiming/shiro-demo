@@ -31,20 +31,20 @@
             <li><a class="edit" href="/doubanMovie/{id}/update" target="navTab" warn="请选择一个电影"><span>修改</span></a></li>
         </ul>
     </div>
-    <div id="w_list_print">
-        <table class="list" width="100%" targetType="navTab" asc="asc" desc="desc" layoutH="98">
+    <div id="w_list_print" layoutH="50">
+        <table class="list" width="100%" targetType="navTab" asc="asc" desc="desc">
             <thead>
             <tr>
-                <th>豆瓣标识</th>
-                <th>标题</th>
-                <th>原标题</th>
+                <th width="100">豆瓣标识</th>
+                <th width="150">标题</th>
+                <th width="400">原标题</th>
                 <th>图片</th>
-                <th>年</th>
-                <th>星级</th>
-                <th>平均分</th>
-                <th>热映</th>
-                <th>TOP250</th>
-                <th>操作</th>
+                <th width="50">年</th>
+                <th width="50">星级</th>
+                <th width="50">平均分</th>
+                <th width="50">热映</th>
+                <th width="50">TOP250</th>
+                <th width="100">操作</th>
             </tr>
             </thead>
             <tbody>
