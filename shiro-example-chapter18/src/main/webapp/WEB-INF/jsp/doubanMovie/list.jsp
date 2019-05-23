@@ -44,6 +44,8 @@
                 <th width="50">平均分</th>
                 <th width="50">热映</th>
                 <th width="50">TOP250</th>
+                <th>创建人</th>
+                <th>创建时间</th>
                 <th width="100">操作</th>
             </tr>
             </thead>
@@ -54,13 +56,15 @@
                     <td>${movie.title}</td>
                     <td>${movie.originalTitle}</td>
                     <td>
-                       <img height="200" width="124" src="${function:doubanIntheatersReplaceImage(movie.smallImage)}">
+                       <img height="200" width="124" src="${movie.smallImage}">
                     </td>
                     <td>${movie.year}</td>
                     <td>${movie.stars}</td>
                     <td>${movie.average}</td>
                     <td>${movie.intheaters}</td>
                     <td>${movie.top250}</td>
+                    <td>${function:findNameByUserId(movie.creator)}</td>
+                    <td>${movie.createDate}</td>
                     <td>
                         <div>
                             <shiro:hasPermission name="role:delete">
