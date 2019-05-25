@@ -40,6 +40,11 @@ public class Godformula {
      */
     private Integer godformulaId;
 
+    /**
+     * 式神分布详情
+     */
+    private String distributionDetails;
+
     public Integer getId() {
         return id;
     }
@@ -94,5 +99,13 @@ public class Godformula {
 
     public void setGodformulaId(Integer godformulaId) {
         this.godformulaId = godformulaId;
+    }
+
+    public String getDistributionDetails() {
+        return distributionDetails;
+    }
+
+    public void setDistributionDetails(String distributionDetails) {
+        this.distributionDetails = distributionDetails;
     }
 }

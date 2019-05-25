@@ -1,12 +1,15 @@
 package com.application.ttm.service.impl;
 
+import com.application.ttm.PageUtils;
 import com.application.ttm.dao.GodformulaDao;
 import com.application.ttm.entity.Godformula;
 import com.application.ttm.service.GodformulaService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>@Author tangtaiming</p>
@@ -42,6 +45,45 @@ public class GodformulaServiceImpl implements GodformulaService {
     @Override
     public List<Godformula> findAll() {
         return godformulaDao.findAll();
+    }
+
+    @Override
+    public List<Godformula> findList(Map<String, Object> param) {
+        int pageSize = PageUtils.getNumPerPage(param);
+        int first = (PageUtils.getPageNum(param) - 1) * pageSize;
+
+        return godformulaDao.findList(first, pageSize);
+    }
+
+    @Override
+    public int count() {
+        return godformulaDao.count();
+    }
+
+    @Override
+    public int getPageNum(Map<String, Object> param) {
+        return PageUtils.getPageNum(param);
+    }
+
+    @Override
+    public int getNumPerPage(Map<String, Object> param) {
+        return PageUtils.getNumPerPage(param);
+    }
+
+    /**
+     * 修改 式神分布详情
+     * @param id
+     * @param distributionDetails
+     * @return
+     */
+    public Godformula updateGodformulaDistributionDetails(Integer id, String distributionDetails) {
+        Godformula godformula = findOne(id);
+        if (null == godformula) {
+            return null;
+        } else {
+            godformula.setDistributionDetails(StringUtils.trim(distributionDetails));
+            return updateGodformula(godformula);
+        }
     }
 
 }

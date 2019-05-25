@@ -97,8 +97,8 @@ public class UserServiceImpl implements UserService {
             List<Resource> resources = resourceService.findAll();
             for (Resource row : resources) {
                 String permimssion = row.getPermission();
-                System.out.println("row " + row.getType().getInfo());
-                System.out.println("resource type " + Resource.ResourceType.button.getInfo());
+//                System.out.println("row " + row.getType().getInfo());
+//                System.out.println("resource type " + Resource.ResourceType.button.getInfo());
                 if (row.isRootNode() || row.getType().getInfo().equals(Resource.ResourceType.button.getInfo())) {
                     continue;
                 }

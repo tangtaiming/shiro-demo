@@ -18,5 +18,7 @@ public interface GodformulaDao {
 
     public Godformula findOne(Integer id);
     public List<Godformula> findAll();
+    public List<Godformula> findList(int first, int pageSize);
+    int count();
 
 }

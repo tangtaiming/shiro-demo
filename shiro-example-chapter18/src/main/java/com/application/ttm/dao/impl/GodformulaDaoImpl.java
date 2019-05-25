@@ -24,9 +24,14 @@ public class GodformulaDaoImpl implements GodformulaDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    /**
+     * sql 查询字段
+     */
+    private static final String FINDSQLCOLUMN = "id, name, rarity, image, creator, create_date, godformula_id, distribution_details";
+
     @Override
     public Godformula createGodformula(Godformula godformula) {
-        final String sql = "insert into sys_godformula(name, rarity, image, creator, create_date, godformula_id) value(?,?,?,?,?,?)";
+        final String sql = "insert into sys_godformula(" + FINDSQLCOLUMN + ") value(?,?,?,?,?,?,?)";
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
@@ -37,6 +42,7 @@ public class GodformulaDaoImpl implements GodformulaDao {
             ps.setLong(4, godformula.getCreator());
             ps.setString(5, godformula.getCreateDate());
             ps.setLong(6, godformula.getGodformulaId());
+            ps.setString(7, godformula.getDistributionDetails());
 
             return ps;
         }, keyHolder);
@@ -45,13 +51,17 @@ public class GodformulaDaoImpl implements GodformulaDao {
 
     @Override
     public Godformula updateGodformula(Godformula godformula) {
-        final String sql = "update sys_godformula set name=?, rarity=?, image=?, creator=?, create_date=?, godformula_id=? where id=?";
+        final String sql = "update sys_godformula set name=?, rarity=?, image=?, creator=?, create_date=?, godformula_id=?, distribution_details=? where id=?";
 
-        jdbcTemplate.update(sql, godformula.getName(),
-                godformula.getRarity(), godformula.getImage(),
-                godformula.getImage(), godformula.getCreator(),
-                godformula.getCreateDate(), godformula.getGodformulaId(),
-                godformula.getGodformulaId());
+        jdbcTemplate.update(sql,
+                godformula.getName(),
+                godformula.getRarity(),
+                godformula.getImage(),
+                godformula.getCreator(),
+                godformula.getCreateDate(),
+                godformula.getGodformulaId(),
+                godformula.getDistributionDetails(),
+                godformula.getId());
         return godformula;
     }
 
@@ -65,7 +75,7 @@ public class GodformulaDaoImpl implements GodformulaDao {
 
     @Override
     public Godformula findOne(Integer id) {
-        final String sql = "select id, name, rarity, image, creator, create_date, godformula_id from sys_godformula where id=?";
+        final String sql = "select " + FINDSQLCOLUMN + " from sys_godformula where id=?";
         List<Godformula> godformulaList = jdbcTemplate.query(sql, new BeanPropertyRowMapper(Godformula.class), id);
         if (CollectionUtils.isEmpty(godformulaList)) {
             return null;
@@ -76,8 +86,24 @@ public class GodformulaDaoImpl implements GodformulaDao {
 
     @Override
     public List<Godformula> findAll() {
-        final String sql = "select id, name, rarity, image, creator, create_date, godformula_id from sys_godformula";
+        final String sql = "select " + FINDSQLCOLUMN + " from sys_godformula";
         List<Godformula> godformulaList = jdbcTemplate.query(sql, new BeanPropertyRowMapper(Godformula.class));
         return CollectionUtils.isEmpty(godformulaList) ? new ArrayList<>() : godformulaList;
+    }
+
+    @Override
+    public List<Godformula> findList(int first, int pageSize) {
+        final String sql = "select " + FINDSQLCOLUMN + " from sys_godformula limit ?, ?";
+        List<Godformula> godformulaList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Godformula.class), first, pageSize);
+
+        return CollectionUtils.isEmpty(godformulaList) ? new ArrayList<>() : godformulaList;
+    }
+
+    @Override
+    public int count() {
+        final String sql = "select count(*) from sys_godformula";
+        int count = jdbcTemplate.queryForObject(sql, Integer.class);
+
+        return count;
     }
 }

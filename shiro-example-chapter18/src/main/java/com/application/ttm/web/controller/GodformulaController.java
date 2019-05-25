@@ -1,15 +1,20 @@
 package com.application.ttm.web.controller;
 
+import com.application.ttm.ResponseUtils;
 import com.application.ttm.entity.Godformula;
 import com.application.ttm.service.GodformulaService;
+import com.application.ttm.service.impl.GodformulaServiceImpl;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 /**
  * <p>@Author tangtaiming</p>
@@ -25,10 +30,37 @@ public class GodformulaController {
 
     @RequiresPermissions("godformula:view")
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-    public String execute(Model model) {
-        List<Godformula> godformulas = godformulaService.findAll();
+    public String execute(Model model, @RequestParam Map<String, Object> param) {
+        List<Godformula> godformulas = godformulaService.findList(param);
         model.addAttribute("godformulaList", godformulas);
+        model.addAttribute("pageNum", godformulaService.getPageNum(param));
+        model.addAttribute("numPerPage", godformulaService.getNumPerPage(param));
+        model.addAttribute("totalCount", godformulaService.count());
         return "/godformula/list";
+    }
+
+    @RequiresPermissions("godformula:updateDistributed")
+    @RequestMapping(value = "/{id}/updateDistributed", method = RequestMethod.GET)
+    public String updateDistributedShow(Model model, @PathVariable(value = "id") int id) {
+        model.addAttribute("op", "修改");
+        model.addAttribute("godformula", godformulaService.findOne(id));
+
+        return "/godformula/updateDistributed";
+    }
+
+    /**
+     * 保存式神描述
+     * @param distributionDetails
+     * @return
+     */
+    @RequiresPermissions("godformula:updateDistributed")
+    @RequestMapping(value = "/{id}/updateDistributed", method = RequestMethod.POST)
+    @ResponseBody
+    public String updateDistributed(@PathVariable(value = "id") Integer id, @RequestParam(value = "distributionDetails") String distributionDetails) {
+        System.out.println(id + " detail: " + distributionDetails);
+        ((GodformulaServiceImpl) godformulaService).updateGodformulaDistributionDetails(id, distributionDetails);
+
+        return ResponseUtils.successByDialogCloseCurrent();
     }
 
 }
