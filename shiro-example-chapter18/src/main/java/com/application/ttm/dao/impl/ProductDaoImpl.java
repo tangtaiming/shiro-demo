@@ -14,8 +14,12 @@ public class ProductDaoImpl implements ProductDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    private static final String FINDSQLCOLUMN = "id, sku, spu, title, description, status, price, length, width, height, total_weight, creator, create_date";
+
     @Override
     public Product create(Product entity) {
+        final String sql = "insert into sys_product(" + FINDSQLCOLUMN + ") values (?, ?)";
+
         return null;
     }
 
