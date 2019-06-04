@@ -10,12 +10,15 @@ public class Product {
     private String spu;     //spu
     private String title;   //标题
     private String description; //描述
+    private Integer status; //状态
+    private Double price;   //价格
     private Double length;  //长
     private Double width;   //宽
     private Double height;  //高
     private Double totalWeight; //总重量
     private Long creator;   //创建人
     private String createDate;  //创建时间
+
 
     public Long getId() {
         return id;
@@ -103,5 +106,21 @@ public class Product {
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }
