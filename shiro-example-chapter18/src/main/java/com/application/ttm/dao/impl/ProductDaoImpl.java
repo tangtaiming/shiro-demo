@@ -51,7 +51,7 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public Product update(Product entity) {
         final String sql = "update sys_product set sku=?, spu=?, title=?, description=?, status=?, price=?, length=?, width=?, height=?, total_weight=?, creator=?, create_date=? where id=?";
-        jdbcTemplate.update(sql,
+        int update = jdbcTemplate.update(sql,
                 entity.getSku(),
                 entity.getSpu(),
                 entity.getTitle(),
@@ -66,7 +66,7 @@ public class ProductDaoImpl implements ProductDao {
                 entity.getCreateDate(),
                 entity.getId());
 
-        return entity;
+        return update > 0 ? entity : null;
     }
 
     @Override
@@ -82,7 +82,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Product findOne(Long id) {
-        final String sql = "select id " + FINDSQLCOLUMN + " from sys_product where id=?";
+        final String sql = "select id, " + FINDSQLCOLUMN + " from sys_product where id=?";
         List<Product> products = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Product.class), id);
         return CollectionUtils.isEmpty(products) ? null : products.get(0);
 
@@ -90,7 +90,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public List<Product> findList(int first, int pageSize) {
-        final String sql = "select id " + FINDSQLCOLUMN + " from sys_product limit ?, ?";
+        final String sql = "select id, " + FINDSQLCOLUMN + " from sys_product limit ?, ?";
         List<Product> products = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Product.class), first, pageSize);
         return CollectionUtils.isEmpty(products) ? new ArrayList<>() : products;
     }

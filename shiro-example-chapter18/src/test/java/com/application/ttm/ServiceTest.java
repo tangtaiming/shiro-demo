@@ -102,6 +102,7 @@ public class ServiceTest {
         String defaultCreateDate = "YYYY-MM-dd HH:mm:ss";
         product.setCreateDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern(defaultCreateDate)));
         Product update = productDao.update(product);
+        Assert.assertNotNull(update);
         System.out.println(update.toString());
     }
 
