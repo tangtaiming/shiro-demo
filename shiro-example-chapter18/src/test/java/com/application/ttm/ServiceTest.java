@@ -1,6 +1,8 @@
 package com.application.ttm;
 
+import com.application.ttm.dao.ProductDao;
 import com.application.ttm.entity.Authorize;
+import com.application.ttm.entity.Product;
 import com.application.ttm.entity.User;
 import com.application.ttm.service.AuthorizeService;
 import com.application.ttm.service.DoubanMovieService;
@@ -30,6 +32,9 @@ public class ServiceTest {
     @Autowired
     private AuthorizeService authorizeService;
 
+    @Autowired
+    private ProductDao productDao;
+
     @Test
     public void testUpdate() {
 //        User usr = userService.findOne(1L);
@@ -50,6 +55,7 @@ public class ServiceTest {
         userService.createUser(user);
     }
 
+    @Ignore
     @Test
     public void testAuthoirze() {
         String defaultCreateDate = "YYYY-MM-dd HH:mm:ss";
@@ -63,6 +69,28 @@ public class ServiceTest {
     @Test
     public void testCount() {
         System.out.println(doubanMovieService.count());
+    }
+
+    @Ignore
+    @Test
+    public void testProductCreate() {
+        Product product = new Product();
+        product.setSku("HT120-M");
+        product.setSpu("HT120");
+        product.setTitle("乐玥桐迷彩短裤男夏天男士大码肥佬多口袋工装中裤个性嘻哈潮牌纯棉胖子沙滩裤 军绿色 31");
+        product.setDescription("品牌： 乐玥桐 商品名称：乐玥桐迷彩短裤男夏天男士大码肥佬多口袋工装中裤个性嘻哈潮牌纯棉胖子沙滩裤 军绿色 31商品编号：29429884641店铺： 玥儿弯服饰专营店商品毛重：500.00g商品产地：中国大陆货号：307-2-2292裤型：沙滩裤风格：商务休闲厚度：常规颜色：灰色，绿色，蓝色图案：迷彩弹力：微弹适用场景：其它　尺码：其它主要材质：棉流行元素：简约裤门襟：其他裤长：六分裤腰型：中腰适用季节：夏季工艺：免烫处理适用人群：青少年上市时间：2018夏季");
+        product.setStatus(0);
+        product.setLength(0.1);
+        product.setWidth(0.1);
+        product.setHeight(0.1);
+        product.setTotalWeight(500.00);
+        product.setPrice(128.00);
+        product.setCreator(-999L);
+        String defaultCreateDate = "YYYY-MM-dd HH:mm:ss";
+        product.setCreateDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern(defaultCreateDate)));
+//        System.out.println(product.toString());
+        productDao.create(product);
+        System.out.println(product.toString());
     }
 
 }

@@ -123,4 +123,23 @@ public class Product {
     public void setPrice(Double price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", sku='" + sku + '\'' +
+                ", spu='" + spu + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                ", price=" + price +
+                ", length=" + length +
+                ", width=" + width +
+                ", height=" + height +
+                ", totalWeight=" + totalWeight +
+                ", creator=" + creator +
+                ", createDate='" + createDate + '\'' +
+                '}';
+    }
 }
