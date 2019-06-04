@@ -7,6 +7,7 @@ import com.application.ttm.entity.User;
 import com.application.ttm.service.AuthorizeService;
 import com.application.ttm.service.DoubanMovieService;
 import com.application.ttm.service.UserService;
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -91,6 +92,17 @@ public class ServiceTest {
 //        System.out.println(product.toString());
         productDao.create(product);
         System.out.println(product.toString());
+    }
+
+    @Test
+    public void testProductUpdateSuccess() {
+        Product product = productDao.findOne(1L);
+        Assert.assertNotNull(product);
+        System.out.println(product.toString());
+        String defaultCreateDate = "YYYY-MM-dd HH:mm:ss";
+        product.setCreateDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern(defaultCreateDate)));
+        Product update = productDao.update(product);
+        System.out.println(update.toString());
     }
 
 }

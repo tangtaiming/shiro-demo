@@ -2,12 +2,15 @@ package com.application.ttm.dao.impl;
 
 import com.application.ttm.dao.ProductDao;
 import com.application.ttm.entity.Product;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -47,32 +50,57 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Product update(Product entity) {
-        return null;
+        final String sql = "update sys_product set sku=?, spu=?, title=?, description=?, status=?, price=?, length=?, width=?, height=?, total_weight=?, creator=?, create_date=? where id=?";
+        jdbcTemplate.update(sql,
+                entity.getSku(),
+                entity.getSpu(),
+                entity.getTitle(),
+                entity.getDescription(),
+                entity.getStatus(),
+                entity.getPrice(),
+                entity.getLength(),
+                entity.getWidth(),
+                entity.getHeight(),
+                entity.getTotalWeight(),
+                entity.getCreator(),
+                entity.getCreateDate(),
+                entity.getId());
+
+        return entity;
     }
 
     @Override
     public boolean delete(Product entity) {
-        return false;
+        final String sql = "delete from sys_product where id=?";
+        return jdbcTemplate.update(sql, entity.getId()) > 0 ? true : false;
     }
 
     @Override
     public Product findOne(Integer id) {
-        return null;
+        return findOne(Long.valueOf(id.toString()));
     }
 
     @Override
     public Product findOne(Long id) {
-        return null;
+        final String sql = "select id " + FINDSQLCOLUMN + " from sys_product where id=?";
+        List<Product> products = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Product.class), id);
+        return CollectionUtils.isEmpty(products) ? null : products.get(0);
+
     }
 
     @Override
     public List<Product> findList(int first, int pageSize) {
-        return null;
+        final String sql = "select id " + FINDSQLCOLUMN + " from sys_product limit ?, ?";
+        List<Product> products = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Product.class), first, pageSize);
+        return CollectionUtils.isEmpty(products) ? new ArrayList<>() : products;
     }
 
     @Override
     public int count() {
-        return 0;
+        final String sql = "select (*) from sys_product";
+        int count = jdbcTemplate.queryForObject(sql, Integer.class);
+
+        return count;
     }
 
 }
