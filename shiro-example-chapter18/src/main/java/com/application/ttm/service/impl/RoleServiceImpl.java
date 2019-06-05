@@ -6,6 +6,7 @@ import com.application.ttm.PageUtils;
 import com.application.ttm.dao.ResourceDao;
 import com.application.ttm.dao.RoleDao;
 import com.application.ttm.entity.Role;
+import com.application.ttm.entity.User;
 import com.application.ttm.service.PageService;
 import com.application.ttm.service.ResourceService;
 import com.application.ttm.service.RoleService;

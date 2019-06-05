@@ -55,4 +55,11 @@ public interface UserService {
      */
     public Set<String> findPermissions(String username);
 
+    /**
+     * 用户id 查询菜单
+     * @param userId
+     * @return
+     */
+    public List<Long> findAllMenuId(Long userId);
+
 }

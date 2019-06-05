@@ -3,20 +3,19 @@ package com.application.ttm.service.impl;
 import com.application.ttm.JsonUtils;
 import com.application.ttm.dao.UserDao;
 import com.application.ttm.entity.Resource;
+import com.application.ttm.entity.Role;
 import com.application.ttm.entity.User;
 import com.application.ttm.service.PasswordHelper;
 import com.application.ttm.service.ResourceService;
 import com.application.ttm.service.RoleService;
 import com.application.ttm.service.UserService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * <p>@Author tangtaiming</p>
@@ -111,6 +110,39 @@ public class UserServiceImpl implements UserService {
             return Collections.EMPTY_SET;
         }
         return roleService.findPermissions(user.getRoleIds().toArray(new Long[0]));
+    }
+
+    /**
+     * 用户id 查询菜单
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Long> findAllMenuId(Long userId) {
+        //查询用户有多少角色
+        User user = findOne(userId);
+        List<Long> roleIds = null;
+        if (null == user) {
+            roleIds =  new ArrayList<>();
+        } else {
+            roleIds =  user.getRoleIds();
+        }
+
+        //根据id查询角色
+        List<Role> roles = new ArrayList<>();
+        for (Long roleIdRow : roleIds) {
+            Role roleRow = roleService.findOne(roleIdRow);
+            roles.add(roleRow);
+        }
+
+        //获取角色对应的资源
+        Set<Long> resources = new HashSet<>();
+        for (Role roleRow : roles) {
+            resources.addAll(roleRow.getResourceIds());
+        }
+
+        return new ArrayList<>(resources);
     }
 
 }

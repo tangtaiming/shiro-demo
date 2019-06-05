@@ -18,4 +18,11 @@ public interface ResourceDao {
     Resource findOne(Long resourceId);
     List<Resource> findAll();
 
+    /**
+     * 父类别id查询 资源
+     * @param parentId
+     * @return
+     */
+    List<Resource> findByParentId(Long parentId);
+
 }

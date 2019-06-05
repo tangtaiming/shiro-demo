@@ -1,6 +1,7 @@
 package com.application.ttm.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>@Author tangtaiming</p>
@@ -16,6 +17,7 @@ public class Resource implements Serializable {
     private Long parentId; //父编号
     private String parentIds; //父编号列表
     private Boolean available = Boolean.FALSE;
+    private List<Resource> list; //子资源
 
     public static enum ResourceType {
         menu("菜单"), button("按钮");
@@ -103,6 +105,15 @@ public class Resource implements Serializable {
     public String makeSelfAsParentIds() {
         return getParentIds() + getId() + "/";
     }
+
+    public List<Resource> getList() {
+        return list;
+    }
+
+    public void setList(List<Resource> list) {
+        this.list = list;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

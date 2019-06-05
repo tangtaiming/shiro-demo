@@ -3,9 +3,11 @@ package com.application.ttm;
 import com.application.ttm.dao.ProductDao;
 import com.application.ttm.entity.Authorize;
 import com.application.ttm.entity.Product;
+import com.application.ttm.entity.Resource;
 import com.application.ttm.entity.User;
 import com.application.ttm.service.AuthorizeService;
 import com.application.ttm.service.DoubanMovieService;
+import com.application.ttm.service.ResourceService;
 import com.application.ttm.service.UserService;
 import com.sun.xml.internal.messaging.saaj.packaging.mime.util.LineInputStream;
 import org.aspectj.weaver.Dump;
@@ -38,6 +40,9 @@ public class ServiceTest {
 
     @Autowired
     private ProductDao productDao;
+
+    @Autowired
+    private ResourceService resourceService;
 
     @Test
     public void testUpdate() {
@@ -132,5 +137,12 @@ public class ServiceTest {
         Boolean delete = productDao.delete(product);
         System.out.println("Delete: " + delete);
     }
+
+    @Test
+    public void testNavSuccess() {
+        List<Resource> resources = resourceService.findUserMenus(1L);
+        System.out.println(JsonUtils.toJson(resources));
+    }
+
 
 }

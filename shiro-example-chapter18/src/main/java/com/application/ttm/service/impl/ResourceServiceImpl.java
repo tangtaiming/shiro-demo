@@ -2,8 +2,10 @@ package com.application.ttm.service.impl;
 
 import com.alibaba.druid.util.StringUtils;
 import com.application.ttm.dao.ResourceDao;
+import com.application.ttm.dao.UserDao;
 import com.application.ttm.entity.Resource;
 import com.application.ttm.service.ResourceService;
+import com.application.ttm.service.UserService;
 import org.apache.shiro.authz.permission.WildcardPermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,9 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Autowired
     private ResourceDao resourceDao;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public Resource createResource(Resource resource) {
@@ -82,6 +87,43 @@ public class ResourceServiceImpl implements ResourceService {
         return menus;
     }
 
+    /**
+     * 获取用户菜单列表
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Resource> findUserMenus(Long userId) {
+        List<Long> menuIdList = userService.findAllMenuId(userId);
+        return getAllMenus(menuIdList);
+    }
+
+    /**
+     * 父类别查询 资源
+     *
+     * @param parentId
+     * @param userMenuIdList
+     * @return
+     */
+    @Override
+    public List<Resource> findByParentId(Long parentId, List<Long> userMenuIdList) {
+        List<Resource> resourcesFind = resourceDao.findByParentId(parentId);
+        if (null == resourcesFind) {
+            return resourcesFind;
+        }
+
+        List<Resource> userMenuList = new ArrayList<>();
+        for (Resource resourceRowFind : resourcesFind) {
+            Long menuId = resourceRowFind.getId();
+            if (userMenuIdList.contains(menuId)) {
+                userMenuList.add(resourceRowFind);
+            }
+        }
+        return userMenuList;
+    }
+
+
     private boolean hasPermission(Set<String> permissions, Resource resource) {
         if (StringUtils.isEmpty(resource.getPermission())) {
             return true;
@@ -95,6 +137,25 @@ public class ResourceServiceImpl implements ResourceService {
             }
         }
         return false;
+    }
+
+    private List<Resource> getAllMenus(List<Long> menuIdList) {
+        //查询根菜单列表
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              List<Resource> resources = findByParentId(0L, menuIdList);
+        //递归查询子类别
+        return getMenuTreeList(resources, menuIdList);
+    }
+
+    private List<Resource> getMenuTreeList(List<Resource> rootMenus, List<Long> menuIdList) {
+        List<Resource> subMenuList = new ArrayList<>();
+
+        for (Resource resource : rootMenus) {
+            if (Resource.ResourceType.menu.equals(resource.getType())) {
+                resource.setList(getMenuTreeList(findByParentId(resource.getId(), menuIdList), menuIdList));
+            }
+            subMenuList.add(resource);
+        }
+        return subMenuList;
     }
 
 }

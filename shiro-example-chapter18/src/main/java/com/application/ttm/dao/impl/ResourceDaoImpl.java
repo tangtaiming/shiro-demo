@@ -10,6 +10,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -80,6 +81,20 @@ public class ResourceDaoImpl implements ResourceDao {
         final String sql = "select id, name, type, url, permission, parent_id, parent_ids, available from sys_resource";
         List<Resource> resourceList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Resource.class));
         return CollectionUtils.isEmpty(resourceList) ? null : resourceList;
+    }
+
+    /**
+     * 父类别id查询 资源
+     *
+     * @param parentId
+     * @return
+     */
+    @Override
+    public List<Resource> findByParentId(Long parentId) {
+        final String sql = "select id, name, type, url, permission, parent_id, parent_ids, available from sys_resource where parent_id=?";
+        List<Resource> resources = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Resource.class), parentId);
+
+        return CollectionUtils.isEmpty(resources) ? new ArrayList<>() : resources;
     }
 
 }

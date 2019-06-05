@@ -33,4 +33,19 @@ public interface ResourceService {
      */
     List<Resource> findMenus(Set<String> permissions);
 
+    /**
+     * 获取用户菜单列表
+     * @param userId
+     * @return
+     */
+    List<Resource> findUserMenus(Long userId);
+
+    /**
+     * 父类别查询 资源
+     * @param parentId
+     * @param userMenuIdList
+     * @return
+     */
+    List<Resource> findByParentId(Long parentId, List<Long> userMenuIdList);
+
 }
