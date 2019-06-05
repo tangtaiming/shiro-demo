@@ -7,6 +7,8 @@ import com.application.ttm.entity.User;
 import com.application.ttm.service.AuthorizeService;
 import com.application.ttm.service.DoubanMovieService;
 import com.application.ttm.service.UserService;
+import com.sun.xml.internal.messaging.saaj.packaging.mime.util.LineInputStream;
+import org.aspectj.weaver.Dump;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -17,6 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  * <p>@Author tangtaiming</p>
@@ -72,7 +75,7 @@ public class ServiceTest {
         System.out.println(doubanMovieService.count());
     }
 
-    @Ignore
+//    @Ignore
     @Test
     public void testProductCreate() {
         Product product = new Product();
@@ -94,6 +97,7 @@ public class ServiceTest {
         System.out.println(product.toString());
     }
 
+    @Ignore
     @Test
     public void testProductUpdateSuccess() {
         Product product = productDao.findOne(1L);
@@ -104,6 +108,29 @@ public class ServiceTest {
         Product update = productDao.update(product);
         Assert.assertNotNull(update);
         System.out.println(update.toString());
+    }
+
+    @Ignore
+    @Test
+    public void testProductsSuccess() {
+        List<Product> products = productDao.findList(0, 20);
+        products.forEach(System.out::println);
+    }
+
+    @Ignore
+    @Test
+    public void testProductCountSuccess() {
+        int count = productDao.count();
+        System.out.println("count: " + count);
+    }
+
+    @Ignore
+    @Test
+    public void testProductDeleteSuccess() {
+        Product product = productDao.findOne(1L);
+        Assert.assertNotNull(product);
+        Boolean delete = productDao.delete(product);
+        System.out.println("Delete: " + delete);
     }
 
 }

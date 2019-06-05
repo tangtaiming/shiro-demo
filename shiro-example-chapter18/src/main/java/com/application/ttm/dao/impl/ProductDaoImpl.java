@@ -97,7 +97,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public int count() {
-        final String sql = "select (*) from sys_product";
+        final String sql = "select count(*) from sys_product";
         int count = jdbcTemplate.queryForObject(sql, Integer.class);
 
         return count;
