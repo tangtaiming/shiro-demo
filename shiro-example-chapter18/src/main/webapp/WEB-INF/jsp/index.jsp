@@ -161,11 +161,11 @@
                     </c:if>
                 </c:forEach>
                 <script>
-                    function initMenu() {
-                        var menus = '${menus}';
+                    var menus = '${menus}';
+                    function initMenu(id, arr) {
                         var childMenus = getChildMenu(id, arr);
                         if (childMenus) {
-
+                            initMenu(id, arr);
                         }
                     }
                 </script>
