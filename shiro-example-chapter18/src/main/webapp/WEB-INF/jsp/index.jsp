@@ -134,17 +134,42 @@
             <div class="toggleCollapse"><h2>主菜单</h2><div>收缩</div></div>
 
             <div class="accordion" fillSpace="sidebar">
+                    
+                <%--<div class="accordionHeader">--%>
+                    <%--<h2><span>Folder</span>基本功能</h2>--%>
+                <%--</div>--%>
+                <%--<div class="accordionContent">--%>
+                    <%--<ul class="tree treeFolder">--%>
+                        <%--<c:forEach items="${menus}" var="m">--%>
+                            <%--<li><a href="${m.url}" target="navTab" rel="${m.url}">${m.name}</a></li>--%>
+                        <%--</c:forEach>--%>
+                    <%--</ul>--%>
+                <%--</div>--%>
 
-                <div class="accordionHeader">
-                    <h2><span>Folder</span>基本功能</h2>
-                </div>
-                <div class="accordionContent">
-                    <ul class="tree treeFolder">
-                        <c:forEach items="${menus}" var="m">
-                            <li><a href="${m.url}" target="navTab" rel="${m.url}">${m.name}</a></li>
-                        </c:forEach>
-                    </ul>
-                </div>
+                <c:forEach items="${menus}" var="m">
+                    <c:if test="${m.parentId > 0}">
+                        <div class="accordionHeader">
+                            <h2><span>Folder</span>${m.name}</h2>
+                            <div class="accordionContent">
+                                <ul class="tree treeFolder">
+                                    <c:forEach items="${m.list}" var="subm">
+                                        <li><a href="${subm.url}" target="navTab" rel="${subm.url}">${subm.name}</a></li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </div>
+                    </c:if>
+                </c:forEach>
+                <script>
+                    function initMenu() {
+                        var menus = '${menus}';
+                        var childMenus = getChildMenu(id, arr);
+                        if (childMenus) {
+
+                        }
+                    }
+                </script>
+
             </div>
         </div>
     </div>
