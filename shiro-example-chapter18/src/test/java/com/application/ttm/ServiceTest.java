@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -140,6 +141,34 @@ public class ServiceTest {
     public void testNavSuccess() {
         List<Resource> resources = resourceService.findUserMenus(1L);
         System.out.println(JsonUtils.toJson(resources));
+    }
+
+    @Test
+    public void testNav2Success() {
+        List<Resource> resources = resourceService.findAll();
+        List<Resource> all = getDatas(1L, resources);
+        System.out.println(JsonUtils.toJson(all));
+    }
+
+    public List<Resource> getDatas(Long id, List<Resource> all) {
+        List<Resource> childResource = getChild(id, all);
+        if (childResource.size() > 0) {
+            for (Resource childResourceRow : childResource) {
+                childResourceRow.setList(getDatas(childResourceRow.getId(), all));
+            }
+        }
+        return childResource;
+    }
+
+    public List<Resource> getChild(Long id, List<Resource> all) {
+        List<Resource> newChilds = new ArrayList<>();
+        for (Resource resourceRow : all) {
+            Long parentId = resourceRow.getParentId();
+            if (parentId.equals(id)) {
+                newChilds.add(resourceRow);
+            }
+        }
+        return newChilds;
     }
 
 

@@ -1,5 +1,6 @@
 package com.application.ttm.web.controller;
 
+import com.application.ttm.JsonUtils;
 import com.application.ttm.entity.Resource;
 import com.application.ttm.entity.User;
 import com.application.ttm.service.ResourceService;
@@ -29,9 +30,11 @@ public class IndexController {
 
     @RequestMapping("/")
     public String index(@CurrentUser User loginUser, Model model) {
-        Set<String> permissions = userService.findPermissions(loginUser.getUsername());
-        List<Resource> menus = resourceService.findMenus(permissions);
-        model.addAttribute("menus", menus);
+//        Set<String> permissions = userService.findPermissions(loginUser.getUsername());
+//        List<Resource> menus = resourceService.findMenus(permissions);
+        List<Resource> resources = resourceService.findUserMenus(loginUser.getId());
+        System.out.println("Json: " + JsonUtils.toJson(resources));
+        model.addAttribute("menus", resources);
         return "index";
     }
 
