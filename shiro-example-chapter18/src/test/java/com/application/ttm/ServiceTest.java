@@ -9,8 +9,6 @@ import com.application.ttm.service.AuthorizeService;
 import com.application.ttm.service.DoubanMovieService;
 import com.application.ttm.service.ResourceService;
 import com.application.ttm.service.UserService;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.util.LineInputStream;
-import org.aspectj.weaver.Dump;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

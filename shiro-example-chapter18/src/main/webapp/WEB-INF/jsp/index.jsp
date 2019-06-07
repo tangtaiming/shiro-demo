@@ -17,7 +17,7 @@
 
     <link href="/static/dwz_jui/themes/default/style.css" rel="stylesheet" type="text/css" media="screen"/>
     <link href="/static/dwz_jui/themes/css/core.css" rel="stylesheet" type="text/css" media="screen"/>
-    <link href="/static/dwz_jui/themes/css/print.css" rel="stylesheet" type="text/css" media="print"/>
+    <link href="/static/dwz_jui/themes/cssinitUI/print.css" rel="stylesheet" type="text/css" media="print"/>
     <!--[if IE]>
     <link href="/static/dwz_jui/themes/css/ieHack.css" rel="stylesheet" type="text/css" media="screen"/>
     <![endif]-->
