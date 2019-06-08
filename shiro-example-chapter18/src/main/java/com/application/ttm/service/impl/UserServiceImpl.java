@@ -10,6 +10,7 @@ import com.application.ttm.service.ResourceService;
 import com.application.ttm.service.RoleService;
 import com.application.ttm.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,7 +99,7 @@ public class UserServiceImpl implements UserService {
                 String permimssion = row.getPermission();
 //                System.out.println("row " + row.getType().getInfo());
 //                System.out.println("resource type " + Resource.ResourceType.button.getInfo());
-                if (row.isRootNode() || row.getType().getInfo().equals(Resource.ResourceType.button.getInfo())) {
+                if (row.isRootNode() || row.getType().getInfo().equals(Resource.ResourceType.button.getInfo()) || StringUtils.isEmpty(permimssion)) {
                     continue;
                 }
                 permissions.add(permimssion);

@@ -4,6 +4,7 @@ import com.application.ttm.entity.Resource;
 import com.application.ttm.entity.User;
 import com.application.ttm.service.ResourceService;
 import com.application.ttm.service.UserService;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -40,7 +41,7 @@ public class UserRealm extends AuthorizingRealm {
             Set<String> permissionList = new HashSet<>();
             for (Resource row : resourceList) {
                 //如果是root 菜单或者 按钮顾虑
-                if (row.isRootNode() || row.getType().getInfo().equals(Resource.ResourceType.button.getInfo())) {
+                if (row.isRootNode() || row.getType().getInfo().equals(Resource.ResourceType.button.getInfo()) || StringUtils.isEmpty(row.getPermission())) {
                     continue;
                 }
                 permissionList.add(row.getPermission());

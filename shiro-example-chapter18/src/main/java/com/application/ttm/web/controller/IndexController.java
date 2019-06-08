@@ -35,6 +35,7 @@ public class IndexController {
         List<Resource> resources = resourceService.findUserMenus(loginUser.getId());
         System.out.println("Json: " + JsonUtils.toJson(resources));
         model.addAttribute("menus", resources);
+//        model.addAttribute("menusLast", menus);
         return "index";
     }
 
