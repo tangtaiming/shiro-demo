@@ -149,8 +149,8 @@ public class ServiceTest {
     @Test
     public void testNav2Success() {
         List<Resource> resources = resourceService.findAll();
-        List<Resource> all = getDatas(1L, resources);
-        System.out.println(JsonUtils.toJson(all));
+//        List<Resource> all = getDatas(1L, resources);
+        System.out.println(JsonUtils.toJson(resources));
     }
 
     public List<Resource> getDatas(Long id, List<Resource> all) {
@@ -173,6 +173,8 @@ public class ServiceTest {
         }
         return newChilds;
     }
+
+
 
 
 }
