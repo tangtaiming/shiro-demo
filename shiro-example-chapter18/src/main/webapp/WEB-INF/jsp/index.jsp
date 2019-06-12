@@ -17,7 +17,7 @@
 
     <link href="/static/dwz_jui/themes/default/style.css" rel="stylesheet" type="text/css" media="screen"/>
     <link href="/static/dwz_jui/themes/css/core.css" rel="stylesheet" type="text/css" media="screen"/>
-    <link href="/static/dwz_jui/themes/css/print.css" rel="stylesheet" type="text/css" media="print"/>
+    <link href="/static/dwz_jui/themes/cssinitUI/print.css" rel="stylesheet" type="text/css" media="print"/>
     <!--[if IE]>
     <link href="/static/dwz_jui/themes/css/ieHack.css" rel="stylesheet" type="text/css" media="screen"/>
     <![endif]-->
@@ -140,36 +140,28 @@
                 <%--</div>--%>
                 <%--<div class="accordionContent">--%>
                     <%--<ul class="tree treeFolder">--%>
-                        <%--<c:forEach items="${menus}" var="m">--%>
+                        <%--<c:forEach items="${menusLast}" var="m">--%>
                             <%--<li><a href="${m.url}" target="navTab" rel="${m.url}">${m.name}</a></li>--%>
                         <%--</c:forEach>--%>
                     <%--</ul>--%>
                 <%--</div>--%>
 
                 <c:forEach items="${menus}" var="m">
-                    <c:if test="${m.parentId > 0}">
+                    <c:forEach items="${m.list}" var="firstMenus">
                         <div class="accordionHeader">
-                            <h2><span>Folder</span>${m.name}</h2>
-                            <div class="accordionContent">
-                                <ul class="tree treeFolder">
-                                    <c:forEach items="${m.list}" var="subm">
-                                        <li><a href="${subm.url}" target="navTab" rel="${subm.url}">${subm.name}</a></li>
-                                    </c:forEach>
-                                </ul>
-                            </div>
+                            <h2><span>Folder</span>${firstMenus.name}</h2>
                         </div>
-                    </c:if>
+                        <div class="accordionContent">
+                            <ul class="tree treeFolder">
+                                <c:forEach items="${firstMenus.list}" var="subm">
+                                    <li>
+                                        <a href="${subm.url}" target="navTab" rel="${subm.url}">${subm.name}</a>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </div>
+                    </c:forEach>
                 </c:forEach>
-                <script>
-                    var menus = '${menus}';
-                    function initMenu(id, arr) {
-                        var childMenus = getChildMenu(id, arr);
-                        if (childMenus) {
-                            initMenu(id, arr);
-                        }
-                    }
-                </script>
-
             </div>
         </div>
     </div>
