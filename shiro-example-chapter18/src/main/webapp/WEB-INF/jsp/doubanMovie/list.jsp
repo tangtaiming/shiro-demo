@@ -17,10 +17,28 @@
     <input type="hidden" name="orderField" value="asc" />
 </form>
 
-<c:if test="${not empty msg}">
-    <div class="message">${msg}</div>
-</c:if>
-
+<div class="pageHeader">
+    <form id="mySearchForm" rel="pagerForm" onsubmit="return navTabSearch(this);" action="w_removeSelected.html" method="post">
+        <div class="searchBar">
+            <ul class="searchContent">
+                <li>
+                    <label>标题：</label>
+                    <input type="text" name="title" value=""/>
+                </li>
+                <li>
+                    <label>原标题：</label>
+                    <input type="text" name="originalTitle" value=""/>
+                </li>
+            </ul>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                    <li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">

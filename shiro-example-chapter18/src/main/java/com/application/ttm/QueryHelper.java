@@ -9,8 +9,12 @@ package com.application.ttm;
  * 或者添加condition和orderby之后直接调用preparePageBean
  */
 
+import wen.jianbao.helper.SqlHelper;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -210,10 +214,11 @@ public class QueryHelper{
     }
 
     public static void main(String[] args){
-        QueryHelper helper = new QueryHelper("select a.*,b.*", "table1 a", "table2 b");
-        helper.addCondition("a.parentId=b.id");
-        System.out.println(helper.getSelect());
-        System.out.println(helper.getSqlExceptSelect());
+//        QueryHelper helper = new QueryHelper("select a.*,b.*", "table1 a");
+//        helper.addCondition("a.parentId=b.id");
+//        helper.addCondition("a.table", "1");
+//        System.out.println(helper.getSelect());
+//        System.out.println(helper.getSqlExceptSelectWithPadding());
 
 
 //        ConcurrentHashMap<String, String> searchInfo = new ConcurrentHashMap<String, String>();
@@ -222,5 +227,11 @@ public class QueryHelper{
 
 //        QueryHelper helper2 = SkuService.service.getQueryHelper(searchInfo);
 //        System.out.println(helper2.select + helper2.getSqlExceptSelectWithPadding());
+
+        Map<String, Object> query = new HashMap<>();
+        query.put("sku", "aaa");
+        SqlHelper sqlHelper = new SqlHelper();
+        String sql = sqlHelper.select("*", true).where(query, true).limit(1, 20).getCompiledSelect("syn_product", true);
+        System.out.println(sql);
     }
 }
