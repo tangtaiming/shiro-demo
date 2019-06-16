@@ -20,6 +20,17 @@
 <div class="pageHeader">
     <form id="mySearchForm" rel="pagerForm" onsubmit="return navTabSearch(this);" action="w_removeSelected.html" method="post">
         <div class="searchBar">
+            <div class="subBar row">
+                <div class="col-xs-2">
+                    筛选搜索
+                </div>
+                <div class="col-xs-2 col-lg-offset-10">
+                    <ul>
+                        <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                        <li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>
+                    </ul>
+                </div>
+            </div>
             <ul class="searchContent">
                 <li>
                     <label>标题：</label>
@@ -30,12 +41,6 @@
                     <input type="text" name="originalTitle" value=""/>
                 </li>
             </ul>
-            <div class="subBar">
-                <ul>
-                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
-                    <li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>
-                </ul>
-            </div>
         </div>
     </form>
 </div>
