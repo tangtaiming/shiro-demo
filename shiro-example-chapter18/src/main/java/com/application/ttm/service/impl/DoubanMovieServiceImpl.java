@@ -18,8 +18,10 @@ public class DoubanMovieServiceImpl implements DoubanMovieService {
 
     @Override
     public List<DoubanMovie> findList(Map<String, Object> param) {
+        //分页
         int pageSize = getNumPerPage(param);
         int first = (getPageNum(param) - 1) * pageSize;
+        //查询条件
 
         return doubanMovieDao.findList(first, pageSize);
     }

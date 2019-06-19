@@ -1,6 +1,7 @@
 package com.application.ttm.dao;
 
 import com.application.ttm.entity.DoubanMovie;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 import java.util.Map;

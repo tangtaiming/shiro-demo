@@ -19,7 +19,6 @@ public class Product {
     private Long creator;   //创建人
     private String createDate;  //创建时间
 
-
     public Long getId() {
         return id;
     }

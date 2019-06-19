@@ -9,13 +9,17 @@ package com.application.ttm;
  * 或者添加condition和orderby之后直接调用preparePageBean
  */
 
+import com.alibaba.druid.sql.ast.SQLExpr;
+import com.alibaba.druid.sql.ast.expr.SQLBetweenExpr;
+import com.alibaba.druid.sql.builder.FunctionBuilder;
+import com.alibaba.druid.sql.builder.SQLSelectBuilder;
+import com.alibaba.druid.sql.builder.impl.SQLSelectBuilderImpl;
 import wen.jianbao.helper.SqlHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
@@ -228,10 +232,22 @@ public class QueryHelper{
 //        QueryHelper helper2 = SkuService.service.getQueryHelper(searchInfo);
 //        System.out.println(helper2.select + helper2.getSqlExceptSelectWithPadding());
 
-        Map<String, Object> query = new HashMap<>();
-        query.put("sku", "aaa");
-        SqlHelper sqlHelper = new SqlHelper();
-        String sql = sqlHelper.select("*", true).where(query, true).limit(1, 20).getCompiledSelect("syn_product", true);
-        System.out.println(sql);
+//        Map<String, Object> query = new HashMap<>();
+//        query.put("sku > ", "aaa");
+//        SqlHelper sqlHelper = new SqlHelper();
+//        sqlHelper.set()
+
+//        String sql = sqlHelper.select("*", true).where(query, true).limit(1, 20).getCompiledSelect("syn_product", true);
+//        System.out.println(sql);
+
+        SQLExpr sqlExpr = new SQLBetweenExpr();
+        sqlExpr.addAfterComment("a");
+        FunctionBuilder functionBuilder = new FunctionBuilder("mysql");
+        functionBuilder.ltrim(sqlExpr);
+
+        SQLSelectBuilder selectBuilder = new SQLSelectBuilderImpl("mysql");
+//        selectBuilder.
+//        String s = selectBuilder.from("sys_product").whereAnd("a > 1").whereAnd("b > 3").whereAnd("c ");
+//        System.out.println(s);
     }
 }

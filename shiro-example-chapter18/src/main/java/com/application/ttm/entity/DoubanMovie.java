@@ -1,8 +1,13 @@
 package com.application.ttm.entity;
 
+
+import javax.persistence.*;
+
 /**
  * 豆瓣电影
  */
+@Entity
+@Table(name = "sys_douban_movie")
 public class DoubanMovie {
 
     private Long id;    //编号
@@ -19,6 +24,8 @@ public class DoubanMovie {
     private int intheaters; //热映
     private int top250; //top250
 
+    @Id
+    @GeneratedValue
     public Long getId() {
         return id;
     }
@@ -27,6 +34,7 @@ public class DoubanMovie {
         this.id = id;
     }
 
+    @Column(name = "title")
     public String getTitle() {
         return title;
     }
@@ -35,6 +43,7 @@ public class DoubanMovie {
         this.title = title;
     }
 
+    @Column(name = "small_image")
     public String getSmallImage() {
         return smallImage;
     }
@@ -43,6 +52,7 @@ public class DoubanMovie {
         this.smallImage = smallImage;
     }
 
+    @Column(name = "douben_intheaters_id")
     public Long getDoubenIntheatersId() {
         return doubenIntheatersId;
     }
@@ -51,6 +61,7 @@ public class DoubanMovie {
         this.doubenIntheatersId = doubenIntheatersId;
     }
 
+    @Column(name = "year")
     public String getYear() {
         return year;
     }
@@ -59,6 +70,7 @@ public class DoubanMovie {
         this.year = year;
     }
 
+    @Column(name = "stars")
     public String getStars() {
         return stars;
     }
@@ -67,6 +79,7 @@ public class DoubanMovie {
         this.stars = stars;
     }
 
+    @Column(name = "average")
     public Integer getAverage() {
         return average;
     }
@@ -75,6 +88,7 @@ public class DoubanMovie {
         this.average = average;
     }
 
+    @Column(name = "create_date")
     public String getCreateDate() {
         return createDate;
     }
@@ -83,6 +97,7 @@ public class DoubanMovie {
         this.createDate = createDate;
     }
 
+    @Column(name = "creator")
     public Long getCreator() {
         return creator;
     }
@@ -91,6 +106,7 @@ public class DoubanMovie {
         this.creator = creator;
     }
 
+    @Column(name = "original_title")
     public String getOriginalTitle() {
         return originalTitle;
     }
@@ -99,6 +115,7 @@ public class DoubanMovie {
         this.originalTitle = originalTitle;
     }
 
+    @Column(name = "summary")
     public String getSummary() {
         return summary;
     }
@@ -107,6 +124,7 @@ public class DoubanMovie {
         this.summary = summary;
     }
 
+    @Column(name = "intheaters")
     public int getIntheaters() {
         return intheaters;
     }
@@ -115,6 +133,7 @@ public class DoubanMovie {
         this.intheaters = intheaters;
     }
 
+    @Column(name = "top250")
     public int getTop250() {
         return top250;
     }
