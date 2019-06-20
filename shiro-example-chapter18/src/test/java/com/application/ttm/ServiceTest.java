@@ -1,10 +1,8 @@
 package com.application.ttm;
 
 import com.application.ttm.dao.ProductDao;
-import com.application.ttm.entity.Authorize;
-import com.application.ttm.entity.Product;
-import com.application.ttm.entity.Resource;
-import com.application.ttm.entity.User;
+import com.application.ttm.entity.*;
+import com.application.ttm.repository.impl.DoubanMovieRepositoryImpl;
 import com.application.ttm.service.AuthorizeService;
 import com.application.ttm.service.DoubanMovieService;
 import com.application.ttm.service.ResourceService;
@@ -20,7 +18,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>@Author tangtaiming</p>
@@ -42,6 +42,9 @@ public class ServiceTest {
 
     @Autowired
     private ResourceService resourceService;
+
+    @Autowired
+    private DoubanMovieRepositoryImpl doubanMovieRepository;
 
     @Test
     public void testUpdate() {
@@ -79,7 +82,7 @@ public class ServiceTest {
         System.out.println(doubanMovieService.count());
     }
 
-//    @Ignore
+    @Ignore
     @Test
     public void testProductCreate() {
         Product product = new Product();
@@ -143,11 +146,20 @@ public class ServiceTest {
         System.out.println(JsonUtils.toJson(resources));
     }
 
+    @Ignore
     @Test
     public void testNav2Success() {
         List<Resource> resources = resourceService.findAll();
 //        List<Resource> all = getDatas(1L, resources);
         System.out.println(JsonUtils.toJson(resources));
+    }
+
+    @Test
+    public void testDoubanMovieServiceSucces() {
+        Map<String, Object> query = new HashMap<>();
+        query.put("title", "肖申克的救赎");
+        List<DoubanMovie> doubanMovies = doubanMovieRepository.fetchList(query);
+        System.out.println("m = " + JsonUtils.toJson(doubanMovies));
     }
 
     public List<Resource> getDatas(Long id, List<Resource> all) {

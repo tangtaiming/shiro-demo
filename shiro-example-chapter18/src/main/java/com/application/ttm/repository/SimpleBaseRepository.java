@@ -1,12 +1,15 @@
 package com.application.ttm.repository;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.hibernate.query.criteria.internal.predicate.InPredicate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.util.*;
 
@@ -26,7 +29,8 @@ public class SimpleBaseRepository<T, ID extends Serializable> extends SimpleJpaR
 
     @Override
     public T fetchOne(Map<String, Object> requestArgs) {
-        return null;
+        Specification specification = new SimpleSpecification(requestArgs);
+        return (T) findOne(specification);
     }
 
     @Override
