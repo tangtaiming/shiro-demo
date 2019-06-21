@@ -2,6 +2,9 @@ package com.application.ttm.repository;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
@@ -20,11 +23,8 @@ import java.util.*;
  **/
 public class SimpleBaseRepository<T, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements BaseRepository<T, ID> {
 
-    private Class<T> domainClass;
-
     public SimpleBaseRepository(Class<T> domainClass, EntityManager em) {
         super(domainClass, em);
-        this.domainClass = domainClass;
     }
 
     @Override
@@ -34,9 +34,10 @@ public class SimpleBaseRepository<T, ID extends Serializable> extends SimpleJpaR
     }
 
     @Override
-    public List<T> fetchList(Map<String, Object> requestArgs) {
+    public List<T> fetchList(Map<String, Object> requestArgs, Pageable pageable) {
         Specification specification = new SimpleSpecification(requestArgs);
-        return findAll(specification);
+        Page<T> page = findAll(specification, pageable);
+        return page.getContent();
     }
 
     @Override

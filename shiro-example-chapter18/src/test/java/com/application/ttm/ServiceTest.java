@@ -12,6 +12,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -157,8 +160,11 @@ public class ServiceTest {
     @Test
     public void testDoubanMovieServiceSucces() {
         Map<String, Object> query = new HashMap<>();
-        query.put("title", "肖申克的救赎");
-        List<DoubanMovie> doubanMovies = doubanMovieRepository.fetchList(query);
+//        query.put("title", "肖申克的救赎");
+
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        Pageable pageable = new PageRequest(1, 20, sort);
+        List<DoubanMovie> doubanMovies = doubanMovieRepository.fetchList(query, pageable);
         System.out.println("m = " + JsonUtils.toJson(doubanMovies));
     }
 

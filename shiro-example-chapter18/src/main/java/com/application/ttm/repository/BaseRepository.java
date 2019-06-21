@@ -1,5 +1,6 @@
 package com.application.ttm.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -17,7 +18,7 @@ public interface BaseRepository<T, ID extends Serializable> extends PagingAndSor
 
     T fetchOne(Map<String, Object> requestArgs);
 
-    List<T> fetchList(Map<String, Object> requestArgs);
+    List<T> fetchList(Map<String, Object> requestArgs, Pageable pageable);
 
     boolean save(Map<String, Object> requestArgs);
 
