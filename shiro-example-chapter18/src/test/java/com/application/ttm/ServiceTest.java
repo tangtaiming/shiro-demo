@@ -2,7 +2,7 @@ package com.application.ttm;
 
 import com.application.ttm.dao.ProductDao;
 import com.application.ttm.entity.*;
-import com.application.ttm.repository.impl.DoubanMovieRepositoryImpl;
+import com.application.ttm.repository.impl.DoubanMovieRepository;
 import com.application.ttm.service.AuthorizeService;
 import com.application.ttm.service.DoubanMovieService;
 import com.application.ttm.service.ResourceService;
@@ -44,7 +44,7 @@ public class ServiceTest {
     private ResourceService resourceService;
 
     @Autowired
-    private DoubanMovieRepositoryImpl doubanMovieRepository;
+    private DoubanMovieRepository doubanMovieRepository;
 
     @Test
     public void testUpdate() {

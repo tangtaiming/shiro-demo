@@ -6,6 +6,6 @@ import com.application.ttm.repository.BaseRepository;
 /**
  * 豆瓣电影
  */
-public interface DoubanMovieRepositoryImpl extends BaseRepository<DoubanMovie, Long> {
+public interface DoubanMovieRepository extends BaseRepository<DoubanMovie, Long> {
 
 }
