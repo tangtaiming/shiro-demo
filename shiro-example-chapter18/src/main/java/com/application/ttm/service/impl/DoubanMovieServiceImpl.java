@@ -8,6 +8,8 @@ import com.application.ttm.service.DoubanMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,7 +29,9 @@ public class DoubanMovieServiceImpl implements DoubanMovieService {
         //分页
         int pageSize = getNumPerPage(param);
         int first = (getPageNum(param) - 1) * pageSize;
-        Pageable pageable = new PageRequest(first, pageSize);
+        //排序 默認使用 id倒序
+        Pageable pageable = new PageRequest(first, pageSize, new Sort(Sort.Direction.DESC, "id"));
+
         //查询条件
         param.remove("numPerPage");
         param.remove("pageNum");
