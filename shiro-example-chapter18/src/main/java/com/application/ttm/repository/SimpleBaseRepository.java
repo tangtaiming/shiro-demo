@@ -55,6 +55,17 @@ public class SimpleBaseRepository<T, ID extends Serializable> extends SimpleJpaR
         return false;
     }
 
+    @Override
+    public List<T> getCollection(Map<String, Object> params) {
+
+        return null;
+    }
+
+    @Override
+    public Long getCollectionCount(Map<String, Object> params) {
+        return null;
+    }
+
     public static class SimpleSpecification<T> implements Specification<T> {
 
         private Map<String, Object> request;

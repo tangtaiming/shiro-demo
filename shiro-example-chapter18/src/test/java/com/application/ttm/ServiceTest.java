@@ -160,10 +160,10 @@ public class ServiceTest {
     @Test
     public void testDoubanMovieServiceSucces() {
         Map<String, Object> query = new HashMap<>();
-//        query.put("title", "肖申克的救赎");
+        query.put("title", "肖申克的救赎");
 
         Sort sort = new Sort(Sort.Direction.DESC, "id");
-        Pageable pageable = new PageRequest(1, 20, sort);
+        Pageable pageable = new PageRequest(0, 20, sort);
         List<DoubanMovie> doubanMovies = doubanMovieRepository.fetchList(query, pageable);
         System.out.println("m = " + JsonUtils.toJson(doubanMovies));
     }

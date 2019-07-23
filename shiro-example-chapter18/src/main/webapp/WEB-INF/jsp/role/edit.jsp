@@ -12,7 +12,11 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/css.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/JQuery_zTree_v3.5.15/css/zTreeStyle/zTreeStyle.css">
 <style>
-    ul.ztree {margin-top: 10px;border: 1px solid #617775;background: #f0f6e4;width:220px;height:200px;overflow-y:scroll;overflow-x:auto;}
+    ul.ztree {margin-top: 10px;width:220px;height:200px;overflow-y:scroll;overflow-x:auto;}
+
+    .ztree .button{
+        float:none;
+    }
 </style>
 <h2 class="contentTitle">${op}角色</h2>
 <div id="pageContent" class="pageContent">

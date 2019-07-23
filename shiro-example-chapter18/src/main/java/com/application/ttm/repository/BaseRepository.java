@@ -14,7 +14,7 @@ import java.util.Map;
  * <p>@Version 1.0</p>
  **/
 @NoRepositoryBean
-public interface BaseRepository<T, ID extends Serializable> extends PagingAndSortingRepository<T, ID> {
+public interface BaseRepository<T, ID extends Serializable> extends PagingAndSortingRepository<T, ID>, CollectionRepository<T> {
 
     T fetchOne(Map<String, Object> requestArgs);
 
