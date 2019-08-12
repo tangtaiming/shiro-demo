@@ -1,6 +1,8 @@
 package com.application.ttm.repository;
 
+import com.application.ttm.repository.specification.CollectionSpecification;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +15,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.*;
 
@@ -57,8 +60,8 @@ public class SimpleBaseRepository<T, ID extends Serializable> extends SimpleJpaR
 
     @Override
     public List<T> getCollection(Map<String, Object> params) {
-
-        return null;
+        Specification specification = new CollectionSpecification(params);
+        return findAll(specification);
     }
 
     @Override
@@ -81,7 +84,9 @@ public class SimpleBaseRepository<T, ID extends Serializable> extends SimpleJpaR
             for (Map.Entry entry : entrys) {
                 String key = (String) entry.getKey();
                 Object value = entry.getValue();
-                if (value instanceof Map) {
+                if (null == value || StringUtils.isEmpty(value.toString())) {
+                    System.out.println("key = " + key + " value is null");
+                } else if (value instanceof Map) {
                     Map<String, Object> compareMap = (Map<String, Object>) value;
                     Set<Map.Entry<String, Object>> compareEntrys = compareMap.entrySet();
                     for (Map.Entry compareEntry : compareEntrys) {
@@ -89,10 +94,10 @@ public class SimpleBaseRepository<T, ID extends Serializable> extends SimpleJpaR
                         Object compareValue = compareEntry.getValue();
                         switch (compareKey) {
                             case "$ge":
-                                predicates.add(criteriaBuilder.ge(root.get(compareKey), (Number) compareValue));
+                                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get(compareKey).as(String.class), (String) compareValue));
                                 break;
                             case "$le":
-                                predicates.add(criteriaBuilder.le(root.get(compareKey), (Number) compareValue));
+                                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get(compareKey).as(String.class), (String) compareValue));
                                 break;
                             case "$gt":
                                 predicates.add(criteriaBuilder.gt(root.get(compareKey), (Number) compareValue));

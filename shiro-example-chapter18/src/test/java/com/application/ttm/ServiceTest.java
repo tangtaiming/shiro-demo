@@ -20,10 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>@Author tangtaiming</p>
@@ -49,21 +46,21 @@ public class ServiceTest {
     @Autowired
     private DoubanMovieRepository doubanMovieRepository;
 
-    @Test
-    public void testUpdate() {
-//        User usr = userService.findOne(1L);
-//        usr.setPassword("123456");
-        userService.changePassword(1L, "123456");
-    }
-
     @Autowired
     private DoubanMovieService doubanMovieService;
 
-    @Ignore
+    @Test
+    public void testUpdate() {
+//        User usr = userService.findOne(132L);
+//        usr.setPassword("123456");
+        userService.changePassword(132L, "123456");
+    }
+
+//    @Ignore
     @Test
     public void testCreateUser() {
         User user = new User();
-        user.setUsername("4");
+        user.setUsername("132");
         user.setPassword("123456");
         user.setOrganizationId(-1L);
         userService.createUser(user);
@@ -160,12 +157,25 @@ public class ServiceTest {
     @Test
     public void testDoubanMovieServiceSucces() {
         Map<String, Object> query = new HashMap<>();
-        query.put("title", "肖申克的救赎");
+        //等于
+//        query.put("title", "肖申克的救赎");
+        //字符串范围
+//        query.put("average[int][from]", 0);
+//        query.put("average[int][to]", 12);
+        //模糊查询
+//        query.put("title[like]", "肖申");
+        //值为空
+//        query.put("intheaters[int][null]", "");
+        //值不为空
+//        query.put("intheaters[int][not_null]", "not_null");
+        //in查询
+        query.put("intheaters[int][in]", Arrays.asList(0, 1, 2, 3, 4, 5));
+        System.out.println("collection = " + JsonUtils.toJson(doubanMovieRepository.getCollection(query)));
 
-        Sort sort = new Sort(Sort.Direction.DESC, "id");
-        Pageable pageable = new PageRequest(0, 20, sort);
-        List<DoubanMovie> doubanMovies = doubanMovieRepository.fetchList(query, pageable);
-        System.out.println("m = " + JsonUtils.toJson(doubanMovies));
+//        Sort sort = new Sort(Sort.Direction.DESC, "id");
+//        Pageable pageable = new PageRequest(2, 20, sort);
+//        List<DoubanMovie> doubanMovies = doubanMovieService.findList(query);
+//        System.out.println("m = " + JsonUtils.toJson(doubanMovies));
     }
 
     public List<Resource> getDatas(Long id, List<Resource> all) {

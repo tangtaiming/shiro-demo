@@ -1,7 +1,5 @@
 package com.application.ttm.web.session;
 
-import com.alibaba.druid.stat.TableStat;
-
 /**
  * 条件
  * <p>@Author tangtaiming</p>
@@ -33,8 +31,24 @@ public class Condition {
         return new Condition("$eq", property, value);
     }
 
+    /**
+     * 大于
+     * @param property
+     * @param value
+     * @return
+     */
     public static Condition gt(String property, String value) {
         return new Condition("$gt", property, value);
+    }
+
+    /**
+     * 小于
+     * @param property
+     * @param value
+     * @return
+     */
+    public static Condition lt(String property, String value) {
+        return new Condition("$lt", property, value);
     }
 
     public String getOperator() {

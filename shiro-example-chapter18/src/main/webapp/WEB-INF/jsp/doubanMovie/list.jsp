@@ -9,16 +9,18 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="function" uri="http://github.com/tangtaiming/tags/ttm-functions" %>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<style>
+
+</style>
 <form id="pagerForm" method="post" action="/doubanMovie">
-    <input type="hidden" name="status" value="${param.status}">
-    <input type="hidden" name="keywords" value="${param.keywords}" />
     <input type="hidden" name="pageNum" value="${pageNum}" />
     <input type="hidden" name="numPerPage" value="${numPerPage}" />
-    <input type="hidden" name="orderField" value="asc" />
+    <input type="hidden" name="orderField" value="" />
+    <input type="hidden" name="orderDirection" value="asc" />
 </form>
 
 <div class="pageHeader">
-    <form id="mySearchForm" rel="pagerForm" onsubmit="return navTabSearch(this);" action="w_removeSelected.html" method="post">
+    <form id="mySearchForm" rel="pagerForm" onsubmit="return navTabSearch(this);" action="/doubanMovie" method="post">
         <div class="searchBar">
             <ul class="searchContent">
                 <li>

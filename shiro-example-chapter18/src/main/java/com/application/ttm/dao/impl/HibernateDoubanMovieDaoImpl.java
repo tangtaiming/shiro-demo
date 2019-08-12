@@ -24,4 +24,5 @@ public class HibernateDoubanMovieDaoImpl<T, ID extends Serializable> extends Sim
         super(domainClass, em);
         this.domainClass = domainClass;
     }
+
 }
