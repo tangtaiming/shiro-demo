@@ -3,6 +3,7 @@ package com.application.ttm.shiro.filter;
 import com.application.ttm.shiro.Constants;
 import com.application.ttm.shiro.JsonUtils;
 import com.application.ttm.shiro.realm.StatelessToken;
+import com.application.ttm.shiro.web.response.ResponseStringUtils;
 import com.application.ttm.shiro.web.response.ResponseUtils;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.springframework.util.LinkedMultiValueMap;
@@ -54,7 +55,8 @@ public class StatelessAuthcFilter extends AccessControlFilter {
         //1、客户端生成的消息摘要
         String clientDigest = request.getParameter(Constants.PARAM_DIGEST);
         //2、客户端传入的用户身份
-        String userid = request.getParameter(Constants.PARAM_USERID);
+        String userid = "userid_" + clientDigest;
+//                request.getParameter(Constants.PARAM_USERID);
         //3、客户端请求的参数列表
         Map<String, String[]> params = new TreeMap<>(request.getParameterMap());
         params.remove(Constants.PARAM_DIGEST);
@@ -77,7 +79,7 @@ public class StatelessAuthcFilter extends AccessControlFilter {
     private void onLoginFail(ServletResponse response) throws IOException {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        httpResponse.getWriter().write(JsonUtils.toJson(ResponseUtils.fail()));
+        httpResponse.getWriter().write(ResponseStringUtils.fail());
     }
 
 }
