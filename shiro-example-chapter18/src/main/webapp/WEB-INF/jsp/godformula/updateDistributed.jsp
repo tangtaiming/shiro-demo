@@ -15,7 +15,9 @@
         <div class="pageFormContent" layoutH="60">
             <p>
                 <form:label path="distributionDetails">分布详情：</form:label>
-                <textarea name="distributionDetails" id="distributionDetails" class="textInput"></textarea>
+            </p>
+            <p>
+                <textarea id="distributionDetails" name="distributionDetails" id="distributionDetails" class="textInput"></textarea>
             </p>
         </div>
         <div class="formBar">
@@ -29,3 +31,7 @@
         </div>
     </form:form>
 </div>
+<script src="/static/plugin/ckeditor/ckeditor.js" type="application/javascript"></script>
+<script type="application/javascript">
+    CKEDITOR.replace( 'distributionDetails' );
+</script>
