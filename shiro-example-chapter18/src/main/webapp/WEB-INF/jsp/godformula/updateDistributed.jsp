@@ -17,7 +17,7 @@
                 <form:label path="distributionDetails">分布详情：</form:label>
             </p>
             <p>
-                <textarea id="distributionDetails" name="distributionDetails" id="distributionDetails" class="textInput"></textarea>
+                <textarea id="distributionDetails" rows="30" cols="120" name="distributionDetails" id="distributionDetails" class="textInput"></textarea>
             </p>
         </div>
         <div class="formBar">

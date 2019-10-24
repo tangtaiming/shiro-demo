@@ -52,7 +52,12 @@
                         <td>
                             <div>
                                 <shiro:hasPermission name="godformula:update">
-                                    <a title="添加式神分布" href="/godformula/${godformula.id}/updateDistributed" target="dialog" class="btnEdit">添加式神分布</a>
+                                    <a title="添加式神分布"
+                                       href="/godformula/${godformula.id}/updateDistributed"
+                                       target="dialog"
+                                       width="800"
+                                       heigth="480"
+                                       class="btnEdit">添加式神分布</a>
                                 </shiro:hasPermission>
                             </div>
                         </td>
