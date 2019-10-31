@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,8 +44,9 @@ public class GodformulaController {
     @RequestMapping(value = "/{id}/updateDistributed", method = RequestMethod.GET)
     public String updateDistributedShow(Model model, @PathVariable(value = "id") int id) {
         model.addAttribute("op", "修改");
-        model.addAttribute("godformula", godformulaService.findOne(id));
-
+        Godformula godformula = godformulaService.findOne(id);
+        model.addAttribute("godformula", godformula);
+        model.addAttribute("distributionDetails", HtmlUtils.htmlUnescape(godformula.getDistributionDetails()));
         return "/godformula/updateDistributed";
     }
 

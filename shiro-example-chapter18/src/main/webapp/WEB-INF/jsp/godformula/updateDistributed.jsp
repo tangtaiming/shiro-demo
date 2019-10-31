@@ -10,15 +10,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--<%@taglib prefix="zhangfn" uri="http://github.com/zhangkaitao/tags/zhang-functions" %>--%>
 <div class="pageContent">
-    <form:form method="post" commandName="godformula" cssClass="pageForm required-validate"  onsubmit="return validateCallback(this, dialogAjaxDone);">
+    <form:form method="post" commandName="godformula" cssClass="pageForm required-validate"  onsubmit="return validateCallbackByDistributionDetails(this, dialogAjaxDone);">
         <form:hidden path="id"/>
         <div class="pageFormContent" layoutH="60">
-            <p>
-                <form:label path="distributionDetails">分布详情：</form:label>
-            </p>
-            <p>
-                <textarea id="distributionDetails" rows="30" cols="120" name="distributionDetails" id="distributionDetails" class="textInput"></textarea>
-            </p>
+            <textarea id="distributionDetails" style="width:100%;" name="distributionDetails" id="distributionDetails" class="textInput">${distributionDetails}</textarea>
         </div>
         <div class="formBar">
             <ul>
@@ -33,5 +28,33 @@
 </div>
 <script src="/static/plugin/ckeditor/ckeditor.js" type="application/javascript"></script>
 <script type="application/javascript">
-    CKEDITOR.replace( 'distributionDetails' );
+    var ck = CKEDITOR.replace( 'distributionDetails' );
+    validateCallbackByDistributionDetails = function (form, callback) {
+        var $form = $(form);
+
+        if (!$form.valid()) {
+            return false;
+        }
+
+        var _submitFn = function () {
+            $form.find(':focus').blur();
+            //textarea 更新元素值
+            ck.updateElement();
+            var $data = $form.serializeArray();
+            console.log('$data = ' + JSON.stringify($data));
+            $.ajax({
+                type: form.method || 'POST',
+                url:$form.attr("action"),
+                data:$data,
+                dataType:"json",
+                cache: false,
+                success: callback || DWZ.ajaxDone,
+                error: DWZ.ajaxError
+            });
+        }
+
+        _submitFn();
+
+        return false;
+    }
 </script>

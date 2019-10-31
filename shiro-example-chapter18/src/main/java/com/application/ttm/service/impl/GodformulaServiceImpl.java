@@ -7,6 +7,7 @@ import com.application.ttm.service.GodformulaService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -81,7 +82,9 @@ public class GodformulaServiceImpl implements GodformulaService {
         if (null == godformula) {
             return null;
         } else {
-            godformula.setDistributionDetails(StringUtils.trim(distributionDetails));
+            String des = StringUtils.trim(distributionDetails);
+            des = HtmlUtils.htmlEscape(des);
+            godformula.setDistributionDetails(des);
             return updateGodformula(godformula);
         }
     }

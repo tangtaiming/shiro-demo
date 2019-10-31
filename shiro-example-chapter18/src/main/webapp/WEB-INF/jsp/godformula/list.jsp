@@ -43,7 +43,8 @@
                         <td>${godformula.godformulaId}</td>
                         <td>${godformula.name}</td>
                         <td>
-                            <img src="${godformula.image}" width="120" height="120">
+                            图片
+<%--                            <img src="${godformula.image}" width="120" height="120">--%>
                         </td>
                         <td>${function:rarityName(godformula.rarity)}</td>
                         <td>${godformula.distributionDetails}</td>
