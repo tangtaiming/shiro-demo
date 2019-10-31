@@ -133,4 +133,16 @@ public class Functions {
         return rarityName;
     }
 
+    /**
+     * 阴阳师分布详情是否编辑
+     * @param distributionDetails
+     * @return
+     */
+    public static String showDistributionDetails(String distributionDetails) {
+        if (StringUtils.isBlank(distributionDetails)) {
+            return "";
+        }
+        return "已编辑";
+    }
+
 }

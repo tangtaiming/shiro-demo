@@ -57,4 +57,11 @@
         <function-signature>java.lang.String rarityName(java.lang.Integer)</function-signature>
     </function>
 
+    <function>
+        <description>阴阳师分布详情是否编辑</description>
+        <name>showDistributionDetails</name>
+        <function-class>com.application.ttm.web.taglib.Functions</function-class>
+        <function-signature>java.lang.String showDistributionDetails(java.lang.String)</function-signature>
+    </function>
+
 </taglib>
